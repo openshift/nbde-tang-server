@@ -30,13 +30,12 @@
 
 ## Introduction
 
-The Tang operator helps to provide [NBDE](https://access.redhat.com/articles/6987053)
+The NBDE Tang server operator helps to provide [NBDE](https://access.redhat.com/articles/6987053)
 technology for OpenShift/K8S. It deploys one or several Tang servers automatically.
 The Tang server container image to launch is configurable, and will use the latest one
-available by default. The Tang operator has been developed using
-[operator-sdk](https://sdk.operatorframework.io/).
+available by default. This operator has been developed using [operator-sdk](https://sdk.operatorframework.io/).
 
-The Tang operator avoids having to follow all Tang manual installation steps,
+The operator avoids having to follow all Tang manual installation steps,
 and leverages some of the features provided by OpenShift: multi-replica deployment,
 scale-in/out, scale up/down or traffic load balancing.
 
@@ -54,8 +53,7 @@ An introductory video can be seen in next link:
 
 ## Versions
 
-Versions released up to date of the Tang operator and the
-Tang operator-bundle are:
+Versions released up to date of the operator and the operator-bundle are:
 
 - v0.0.1:  Hello world version
 - v0.0.2:  Basic version with no fields still updated
@@ -64,8 +62,8 @@ Tang operator-bundle are:
 - v0.0.5:  Version that publishes the service and exposes it on configurable port
 - v0.0.6:  Types refactoring. Initial ginkgo based test
 - v0.0.7:  Include finalizers to make deletion quicker
-- v0.0.8:  Tang operator metadata homogenization
-- v0.0.9:  Tang operator shared storage
+- v0.0.8:  Operator metadata homogenization
+- v0.0.9:  Operator shared storage
 - v0.0.10: Code Refactoring
 - v0.0.11: Extend tests
 - v0.0.12: Fix default key path
@@ -100,10 +98,10 @@ Tang operator-bundle are:
 
 ## Installation
 
-In order to install the Tang operator, you must have previously installed
+In order to install the operator, you must have previously installed
 an OpenShift/K8S cluster. For small computers, **CRC** (Code Ready Containers)
-project is recommended. In case normal OpenShift cluster is used, Tang operator
-installation should not differ from the CRC one. Ultimately, tang-operator has
+project is recommended. In case normal OpenShift cluster is used,
+installation should not differ from the CRC one. Ultimately, the operator has
 been included in Red Hat OpenShift catalog, named as
 [NBDE Tang Server](https://catalog.redhat.com/software/container-stacks/detail/651c310f3b4c44380c45b7c9).
 
@@ -114,11 +112,11 @@ the status of the different Pods, Deployments and Services. Required
 OpenShift client to install is `oc`, whose installation can be
 checked in the [Links](#links) section.
 
-Once OpenShift/K8S cluster is installed, Tang operator can be installed
+Once OpenShift/K8S cluster is installed, operator can be installed
 with operator-sdk.
 operator-sdk installation is described in the [Links](#links) section.
 
-In order to deploy the latest version of the Tang operator, check latest released
+In order to deploy the latest version of the operator, check latest released
 version in the [Versions](#versions) section, and install the appropriate version
 bundle. For example, in case latest version is **1.0.11**, the command to execute
 will be:
@@ -144,7 +142,7 @@ $ operator-sdk run bundle quay.io/sec-eng-special/tang-operator-bundle:multi-arc
 ```
 
 If the message **OLM has successfully installed** is displayed, it is normally a
-sign of a proper installation of the Tang operator.
+sign of a proper installation of the operator.
 
 If a message similar to **"failed open: failed to do request: context deadline exceeded"**,
 it is possible that a timeout is taking place. Try to increase the timeout in case
@@ -158,7 +156,7 @@ INFO[0008] Successfully created registry pod: quay-io-sec-eng-special-tang-opera
 INFO[0031] OLM has successfully installed "tang-operator.v1.0.11"
 ```
 
-Additionally, correct Tang operator installation can be observed if an output like
+Additionally, correct installation can be observed if an output like
 the following is observed when prompting for installed pods:
 
 ```bash
@@ -169,11 +167,11 @@ quay-io-tang-operator-bundle-v1.0.11                1/1   Running   0        90s
 tang-operator-controller-manager-5c9488d8dd-mgmsf   2/2   Running   0        52s
 ```
 
-Note the **Completed** and **Running** state for the different Tang operator pods.
+Note the **Completed** and **Running** state for the different operator pods.
 
 Once operator is correctly installed, appropriate configuration can be applied
 from `config` directory. Minimal installation, that just provides the number
-of replicas (1) to use, is the recommended Tang operator configuration to apply:
+of replicas (1) to use, is the recommended operator configuration to apply:
 
 ```bash
 $ oc apply -f operator_configs/minimal
@@ -181,8 +179,8 @@ namespace/nbde created
 tangserver.daemons.redhat.com/tangserver created
 ```
 
-In case Tang operator is appropriately executed, **nbde** namespace should contain
-the service, deployment and pod associated to the Tang operator:
+In case operator is appropriately executed, **nbde** namespace should contain
+the service, deployment and its related pods:
 
 ```
 $ oc -n nbde get services
@@ -206,10 +204,10 @@ Requirements for tang-operator compilation is as follows:
 * Go compiler (v1.19.6+). Recommended version: v1.22.5.
 * Docker (v24.0.7+ recommended). Podman (v4.9.0+ recommended) can be used as an alternative to Docker.
 
-Compilation of Tang operator needs to be performed in top directory, by executing
+Compilation of operator needs to be performed in top directory, by executing
 **make docker-build**. The name of the image must be provided. In case there
 is no requirement to update the version, same version compared to the last
-version can be used. Otherwise, if new version of the Tang operator is going
+version can be used. Otherwise, if new version of the operator is going
 to be released, it is recommended to increase version appropriately.
 
 In this case, same version is used. Last released version can be observed in
@@ -279,8 +277,7 @@ $ podman push quay.io/sec-eng-special/tang-operator-bundle:latest
 
 - <ins>Compile operator</ins>:
 
-Compile Tang operator code, specifying new version,
-by using **make docker-build** command:
+Compile operator code, specifying new version, by using **make docker-build** command:
 
 ```bash
 $ make docker-build docker-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
