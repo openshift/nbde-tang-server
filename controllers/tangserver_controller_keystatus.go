@@ -19,7 +19,7 @@ package controllers
 import (
 	"encoding/json"
 
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 )
 
 const KEY_STATUS_FILE_NAME = "key_status.txt"

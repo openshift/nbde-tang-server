@@ -19,7 +19,7 @@ package controllers
 import (
 	"fmt"
 
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"

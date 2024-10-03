@@ -38,7 +38,7 @@ Shellcheck
 Staticcheck
 tangd
 TangServer
-tang-operator
+nbde-tang-server
 url
 Url
 URL

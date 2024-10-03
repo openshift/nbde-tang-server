@@ -32,8 +32,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
-	"github.com/latchset/tang-operator/controllers"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
+	"github.com/openshift/nbde-tang-server/controllers"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	webhook "sigs.k8s.io/controller-runtime/pkg/webhook"
 	//+kubebuilder:scaffold:imports
@@ -98,7 +98,7 @@ func main() {
 	if err = (&controllers.TangServerReconciler{
 		Client:   mgr.GetClient(),
 		Scheme:   mgr.GetScheme(),
-		Recorder: mgr.GetEventRecorderFor("tang-operator-controller"),
+		Recorder: mgr.GetEventRecorderFor("nbde-tang-server-controller"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "TangServer")
 		os.Exit(1)

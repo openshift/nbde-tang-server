@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     control-plane: controller-manager
-  name: tang-operator-controller-manager-metrics-service
+  name: nbde-tang-server-controller-manager-metrics-service
 spec:
   ports:
   - name: https

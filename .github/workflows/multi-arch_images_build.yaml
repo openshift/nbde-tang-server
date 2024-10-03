@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: tang-operator
+  IMAGE_NAME: nbde-tang-server
   IMAGE_TAG: multi-arch
   IMAGE_REGISTRY: quay.io
   IMAGE_NAMESPACE: sec-eng-special

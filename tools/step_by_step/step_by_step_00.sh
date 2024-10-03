@@ -77,7 +77,7 @@ prompt_command_vm_manually() {
 }
 
 # Step 1) Install operator
-prompt_command "operator-sdk run bundle --timeout 5m quay.io/sec-eng-special/tang-operator-bundle:latest"
+prompt_command "operator-sdk run bundle --timeout 5m quay.io/sec-eng-special/nbde-tang-server-bundle:latest"
 
 # Step 2) Install key management configuration
 prompt_command "${oc_client} apply -f ${project_root}/operator_configs/minimal-keyretrieve"

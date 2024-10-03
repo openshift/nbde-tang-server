@@ -2,4 +2,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: openshift-tang-operator
+  name: openshift-nbde-tang-server

@@ -39,7 +39,7 @@ Up to date, it can be deployed as a CRD, containing its proper
 configuration values to perform appropriate Tang server operations.
 
 An introductory video can be seen in next link:
-[NBDE in OpenShift: tang-operator basics](https://youtu.be/hmMSIkBoGoY)
+[NBDE in OpenShift basics](https://youtu.be/hmMSIkBoGoY)
 
 ## Versions
 
@@ -112,23 +112,23 @@ bundle. For example, in case latest version is **1.0.11**, the command to execut
 will be:
 
 ```bash
-$ operator-sdk run bundle quay.io/sec-eng-special/tang-operator-bundle:v1.0.11
-INFO[0008] Successfully created registry pod: quay-io-sec-eng-special-tang-operator-bundle-v1.0.11
-INFO[0009] Created CatalogSource: tang-operator-catalog
+$ operator-sdk run bundle quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11
+INFO[0008] Successfully created registry pod: quay-io-sec-eng-special-nbde-tang-server-bundle-v1.0.11
+INFO[0009] Created CatalogSource: nbde-tang-server-catalog
 INFO[0009] OperatorGroup "operator-sdk-og" created
-INFO[0009] Created Subscription: tang-operator-v1.0.11-sub
-INFO[0011] Approved InstallPlan install-lqf9f for the Subscription: tang-operator-v1.0.11-sub
+INFO[0009] Created Subscription: nbde-tang-server-v1.0.11-sub
+INFO[0011] Approved InstallPlan install-lqf9f for the Subscription: nbde-tang-server-v1.0.11-sub
 INFO[0011] Waiting for ClusterServiceVersion to reach 'Succeeded' phase
-INFO[0012]   Waiting for ClusterServiceVersion "default/tang-operator.v1.0.11"
-INFO[0018]   Found ClusterServiceVersion "default/tang-operator.v1.0.11" phase: Pending
-INFO[0020]   Found ClusterServiceVersion "default/tang-operator.v1.0.11" phase: InstallReady
-INFO[0021]   Found ClusterServiceVersion "default/tang-operator.v1.0.11" phase: Installing
-INFO[0031]   Found ClusterServiceVersion "default/tang-operator.v1.0.11" phase: Succeeded
-INFO[0031] OLM has successfully installed "tang-operator.v1.0.11"
+INFO[0012]   Waiting for ClusterServiceVersion "default/nbde-tang-server.v1.0.11"
+INFO[0018]   Found ClusterServiceVersion "default/nbde-tang-server.v1.0.11" phase: Pending
+INFO[0020]   Found ClusterServiceVersion "default/nbde-tang-server.v1.0.11" phase: InstallReady
+INFO[0021]   Found ClusterServiceVersion "default/nbde-tang-server.v1.0.11" phase: Installing
+INFO[0031]   Found ClusterServiceVersion "default/nbde-tang-server.v1.0.11" phase: Succeeded
+INFO[0031] OLM has successfully installed "nbde-tang-server.v1.0.11"
 ```
 To install latest multi-arch image, execute:
 ```bash
-$ operator-sdk run bundle quay.io/sec-eng-special/tang-operator-bundle:multi-arch
+$ operator-sdk run bundle quay.io/sec-eng-special/nbde-tang-server-bundle:multi-arch
 ```
 
 If the message **OLM has successfully installed** is displayed, it is normally a
@@ -140,10 +140,10 @@ your cluster takes long time to deploy. To do so, the option **--timeout** can b
 used (if not used, default time is 2m, which stands for two minutes):
 
 ```bash
-$ operator-sdk run bundle --timeout 3m quay.io/sec-eng-special/tang-operator-bundle:v1.0.11
-INFO[0008] Successfully created registry pod: quay-io-sec-eng-special-tang-operator-bundle-v1.0.11
+$ operator-sdk run bundle --timeout 3m quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11
+INFO[0008] Successfully created registry pod: quay-io-sec-eng-special-nbde-tang-server-bundle-v1.0.11
 ...
-INFO[0031] OLM has successfully installed "tang-operator.v1.0.11"
+INFO[0031] OLM has successfully installed "nbde-tang-server.v1.0.11"
 ```
 
 Additionally, correct installation can be observed if an output like
@@ -153,8 +153,8 @@ the following is observed when prompting for installed pods:
 $ oc get pods
 NAME                                                READY STATUS    RESTARTS AGE
 dbbd1837106ec169542546e7ad251b95d27c3542eb0409c1e   0/1   Completed 0        82s
-quay-io-tang-operator-bundle-v1.0.11                1/1   Running   0        90s
-tang-operator-controller-manager-5c9488d8dd-mgmsf   2/2   Running   0        52s
+quay-io-nbde-tang-server-bundle-v1.0.11                1/1   Running   0        90s
+nbde-tang-server-controller-manager-5c9488d8dd-mgmsf   2/2   Running   0        52s
 ```
 
 Note the **Completed** and **Running** state for the different operator pods.
@@ -190,7 +190,7 @@ Note the **Running** state for the `tangserver` pods.
 
 ## Compilation
 
-Requirements for tang-operator compilation is as follows:
+Requirements for nbde-tang-server compilation is as follows:
 * Go compiler (v1.19.6+). Recommended version: v1.22.5.
 * Docker (v24.0.7+ recommended). Podman (v4.9.0+ recommended) can be used as an alternative to Docker.
 
@@ -207,12 +207,12 @@ To summarize, taking into account that the last released version is **v1.0.11**,
 compilation can be done with next command:
 
 ```bash
-$ make docker-build docker-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
+$ make docker-build docker-push IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
 ...
 Successfully built 4a88ba8e6426
-Successfully tagged sec-eng-special/tang-operator:v1.0.11
-docker push sec-eng-special/tang-operator:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator]
+Successfully tagged sec-eng-special/nbde-tang-server:v1.0.11
+docker push sec-eng-special/nbde-tang-server:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server]
 7910991.0.11a: Pushed
 417cb9b79ade: Layer already exists
 v1.0.11: digest: sha256:c97bed08ab71556542602b008888bdf23ce4afd86228a07 size: 739
@@ -221,12 +221,12 @@ v1.0.11: digest: sha256:c97bed08ab71556542602b008888bdf23ce4afd86228a07 size: 73
 It is possible to use `podman` instead of `docker`:
 
 ```bash
-$ make podman-build podman-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
+$ make podman-build podman-push IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
 ...
 Successfully built 4a88ba8e6426
-Successfully tagged sec-eng-special/tang-operator:v1.0.11
-podman push sec-eng-special/tang-operator:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator]
+Successfully tagged sec-eng-special/nbde-tang-server:v1.0.11
+podman push sec-eng-special/nbde-tang-server:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server]
 7910991.0.11a: Pushed
 417cb9b79ade: Layer already exists
 v1.0.11: digest: sha256:c97bed08ab71556542602b008888bdf23ce4afd86228a07 size: 739
@@ -251,18 +251,18 @@ index 9a41c6a..db12a82 100644
 +VERSION ?= 1.0.11
 ```
 
-Apart from previous changes, it is recommended to generate a "latest" tag for tang-operator bundle:
+Apart from previous changes, it is recommended to generate a "latest" tag for nbde-tang-server bundle:
 
 ```bash
-$ docker tag quay.io/sec-eng-special/tang-operator-bundle:v1.0.11 quay.io/sec-eng-special/tang-operator-bundle:latest
-$ docker push quay.io/sec-eng-special/tang-operator-bundle:latest
+$ docker tag quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11 quay.io/sec-eng-special/nbde-tang-server-bundle:latest
+$ docker push quay.io/sec-eng-special/nbde-tang-server-bundle:latest
 ```
 
 In case `podman` is being used:
 
 ```bash
-$ podman tag quay.io/sec-eng-special/tang-operator-bundle:v1.0.11 quay.io/sec-eng-special/tang-operator-bundle:latest
-$ podman push quay.io/sec-eng-special/tang-operator-bundle:latest
+$ podman tag quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11 quay.io/sec-eng-special/nbde-tang-server-bundle:latest
+$ podman push quay.io/sec-eng-special/nbde-tang-server-bundle:latest
 ```
 
 - <ins>Compile operator</ins>:
@@ -270,11 +270,11 @@ $ podman push quay.io/sec-eng-special/tang-operator-bundle:latest
 Compile operator code, specifying new version, by using **make docker-build** command:
 
 ```bash
-$ make docker-build docker-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
+$ make docker-build docker-push IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
 ...
-Successfully tagged sec-eng-special/tang-operator:v1.0.11
-docker push sec-eng-special/tang-operator:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator]
+Successfully tagged sec-eng-special/nbde-tang-server:v1.0.11
+docker push sec-eng-special/nbde-tang-server:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server]
 9ff8a4099c67: Pushed
 417cb9b79ade: Layer already exists
 v1.0.11: digest: sha256:01620ab19faae54fb382a2ff285f589cf0bde6e168f14f07 size: 739
@@ -283,12 +283,12 @@ v1.0.11: digest: sha256:01620ab19faae54fb382a2ff285f589cf0bde6e168f14f07 size: 7
 And, in case `podman` is being used instead of `docker`:
 
 ```bash
-$ make podman-build podman-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
+$ make podman-build podman-push IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
 ...
 Successfully built 4a88ba8e6426
-Successfully tagged sec-eng-special/tang-operator:v1.0.11
-podman push sec-eng-special/tang-operator:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator]
+Successfully tagged sec-eng-special/nbde-tang-server:v1.0.11
+podman push sec-eng-special/nbde-tang-server:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server]
 7910991.0.11a: Pushed
 417cb9b79ade: Layer already exists
 v1.0.11: digest: sha256:c97bed08ab71556542602b008888bdf23ce4afd86228a07 size: 739
@@ -301,16 +301,16 @@ the bundle with **make bundle**, specifying appropriate image,
 and push it with **make bundle-build bundle-push**:
 
 ```bash
-$ make bundle IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
-$ make bundle-build bundle-push BUNDLE_IMG="quay.io/sec-eng-special/tang-operator-bundle:v1.0.11"
+$ make bundle IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
+$ make bundle-build bundle-push BUNDLE_IMG="quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11"
 ...
-docker push sec-eng-special/tang-operator-bundle:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator-bundle]
+docker push sec-eng-special/nbde-tang-server-bundle:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server-bundle]
 02e3768cfc56: Pushed
 df0c8060d328: Pushed
 84774958bcf4: Pushed
 v1.0.11: digest: sha256:925c2f844f941db2b53ce45cba9db7ee0be613321da8f0f05d size: 939
-make[1]: Leaving directory '/home/user/RedHat/TASKS/TANG_OPERATOR/tang-operator'
+make[1]: Leaving directory '/home/user/RedHat/TASKS/TANG_OPERATOR/nbde-tang-server'
 ```
 
 In case `podman` has been used for container generation, bundle push must be done through `podman`.
@@ -318,23 +318,23 @@ In case the operator bundle is required to be pushed, generate the bundle with *
 specifying appropriate image, and push it with **make podman-bundle-build podman-bundle-push**:
 
 ```bash
-$ make bundle IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
-$ make podman-bundle-build podman-bundle-push BUNDLE_IMG="quay.io/sarroutb/tang-operator-bundle:v1.0.11"
+$ make bundle IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
+$ make podman-bundle-build podman-bundle-push BUNDLE_IMG="quay.io/sarroutb/nbde-tang-server-bundle:v1.0.11"
 ...
-podman push sec-eng-special/tang-operator-bundle:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator-bundle]
+podman push sec-eng-special/nbde-tang-server-bundle:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server-bundle]
 02e3768cfc56: Pushed
 df0c8060d328: Pushed
 84774958bcf4: Pushed
 v1.0.11: digest: sha256:925c2f844f941db2b53ce45cba9db7ee0be613321da8f0f05d size: 939
-make[1]: Leaving directory '/home/user/RedHat/TASKS/TANG_OPERATOR/tang-operator'
+make[1]: Leaving directory '/home/user/RedHat/TASKS/TANG_OPERATOR/nbde-tang-server'
 ```
 
 **IMPORTANT NOTE**: After bundle generation, next change will appear on the bundle directory:
 
 ```bash
---- a/bundle/manifests/tang-operator.clusterserviceversion.yaml
-+++ b/bundle/manifests/tang-operator.clusterserviceversion.yaml
+--- a/bundle/manifests/nbde-tang-server.clusterserviceversion.yaml
++++ b/bundle/manifests/nbde-tang-server.clusterserviceversion.yaml
 @@ -36,17 +36,6 @@ spec:
        displayName: Tang Server
        kind: TangServer
@@ -362,16 +362,16 @@ performed in the operator, together with README.md and Makefile changes
 
 ## Cross Compilation
 
-In order to cross compile tang-operator, prepend **GOARCH** with required architecture to
+In order to cross compile nbde-tang-server, prepend **GOARCH** with required architecture to
 **make docker-build**:
 
 ```bash
-$ GOARCH=ppc64le make docker-build docker-push IMG="quay.io/sec-eng-special/tang-operator:v1.0.11"
+$ GOARCH=ppc64le make docker-build docker-push IMG="quay.io/sec-eng-special/nbde-tang-server:v1.0.11"
 ...
 Successfully built 4a88ba8e6426
-Successfully tagged sec-eng-special/tang-operator:v1.0.11
-docker push sec-eng-special/tang-operator:v1.0.11
-The push refers to repository [quay.io/sec-eng-special/tang-operator]
+Successfully tagged sec-eng-special/nbde-tang-server:v1.0.11
+docker push sec-eng-special/nbde-tang-server:v1.0.11
+The push refers to repository [quay.io/sec-eng-special/nbde-tang-server]
 7910991.0.11a: Pushed
 417cb9b79ade: Layer already exists
 v1.0.11: digest: sha256:c97bed08ab71556542602b008888bdf23ce4afd86228a07 size: 739
@@ -390,13 +390,13 @@ For operator removal, execution of option **cleanup** from sdk-operator is the
 recommended way:
 
 ```bash
-$ operator-sdk cleanup tang-operator
-INFO[0001] subscription "tang-operator-v1.0.11-sub" deleted
+$ operator-sdk cleanup nbde-tang-server
+INFO[0001] subscription "nbde-tang-server-v1.0.11-sub" deleted
 INFO[0001] customresourcedefinition "tangservers.daemons.redhat.com" deleted
-INFO[0002] clusterserviceversion "tang-operator.v1.0.11" deleted
-INFO[0002] catalogsource "tang-operator-catalog" deleted
+INFO[0002] clusterserviceversion "nbde-tang-server.v1.0.11" deleted
+INFO[0002] catalogsource "nbde-tang-server-catalog" deleted
 INFO[0002] operatorgroup "operator-sdk-og" deleted
-INFO[0002] Operator "tang-operator" uninstalled
+INFO[0002] Operator "nbde-tang-server" uninstalled
 ```
 
 ## Tests
@@ -411,9 +411,9 @@ go fmt ./...
 go vet ./...
 ...
 setting up env vars
-?       github.com/latchset/tang-operator       [no test files]
-?       github.com/latchset/tang-operator/api/v1alpha1  [no test files]
-ok      github.com/latchset/tang-operator/controllers   9.720s  coverage: 14.0% of statements
+?       github.com/openshift/nbde-tang-server       [no test files]
+?       github.com/openshift/nbde-tang-server/api/v1alpha1  [no test files]
+ok      github.com/openshift/nbde-tang-server/controllers   9.720s  coverage: 14.0% of statements
 ```
 
 As shown previously, coverage is calculated after test execution. Coverage data is dumped
@@ -429,15 +429,15 @@ files that are part of the controller.
 
 ## Function Tests
 
-Function tests are developed in [Tang Operator Test Suite Repository](https://github.com/RedHat-SP-Security/tang-operator-tests)
+Function tests are developed in [Tang Operator Test Suite Repository](https://github.com/RedHat-SP-Security/nbde-tang-server-tests)
 
-Please, follow instructions in previous repository to execute tang-operator function tests
+Please, follow instructions in previous repository to execute nbde-tang-server function tests
 
 ## CI/CD
 
 :exclamation: CI/CD is in a continuous "work in progress" state :exclamation:
 
-tang-operator uses Github Actions to perform CI/CD (Continuous Integration/Continuous Delivery).
+nbde-tang-server uses Github Actions to perform CI/CD (Continuous Integration/Continuous Delivery).
 There are different Github actions that will perform different tasks:
 
 ### Default compilation, tests and deploy
@@ -483,7 +483,7 @@ However, scorecard tests can be executed manually. In order to execute these tes
 run next command:
 
 ```bash
-$ operator-sdk scorecard -w 60s quay.io/sec-eng-special/tang-operator-bundle:v1.0.11
+$ operator-sdk scorecard -w 60s quay.io/sec-eng-special/nbde-tang-server-bundle:v1.0.11
 ...
 Results:
 Name: olm-status-descriptors
@@ -515,12 +515,12 @@ As it can be observed, execution of operator-sdk scorecard tests are passing suc
 ## Links
 
 [NBDE Technology](https://access.redhat.com/articles/6987053)\
-[Tang-Operator: Providing NBDE in OpenShift](https://cloud.redhat.com/blog/tang-operator-providing-nbde-in-openshift)\
-[Tang-Operator demo on Killercoda](https://killercoda.com/sarroutb/scenario/tang-operator)\
+[Tang-Operator: Providing NBDE in OpenShift](https://cloud.redhat.com/blog/nbde-tang-server-providing-nbde-in-openshift)\
+[Tang-Operator demo on Killercoda](https://killercoda.com/sarroutb/scenario/nbde-tang-server)\
 [CodeReady Containers Installation](https://access.redhat.com/documentation/en-us/red_hat_codeready_containers/1.29/html/getting_started_guide/installation_gsg)\
 [Minikube Installation](https://minikube.sigs.k8s.io/docs/start/)\
 [operator-sdk Installation](https://sdk.operatorframework.io/docs/building-operators/golang/installation/)\
 [Golang installation](https://go.dev/doc/install)\
 [OpenShift CLI Installation](https://docs.openshift.com/container-platform/4.2/cli_reference/openshift_cli/getting-started-cli.html#cli-installing-cli_cli-developer-commands)\
 [Validating Operators using the scorecard tool](https://docs.okd.io/latest/operators/operator_sdk/osdk-scorecard.html)\
-[Tang Operator Test Suite](https://github.com/RedHat-SP-Security/tang-operator-tests)
+[Tang Operator Test Suite](https://github.com/RedHat-SP-Security/nbde-tang-server-tests)

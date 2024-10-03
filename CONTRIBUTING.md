@@ -1,6 +1,6 @@
 # Contributing
 
-If you would like to contribute code to the tang-operator project, you can do so
+If you would like to contribute code to the nbde-tang-server project, you can do so
 through GitHub by forking the repository and sending a Pull Request.
 
 When submitting Golang code, please make every effort to follow existing conventions

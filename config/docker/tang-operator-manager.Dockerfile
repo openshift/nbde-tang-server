@@ -1,8 +1,8 @@
 FROM scratch
 
 WORKDIR /
-COPY manager /tang-operator-manager
+COPY manager /nbde-tang-server-manager
 
 USER "root"
 
-ENTRYPOINT ["/tang-operator-manager"]
+ENTRYPOINT ["/nbde-tang-server-manager"]

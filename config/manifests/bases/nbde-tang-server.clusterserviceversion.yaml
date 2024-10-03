@@ -147,11 +147,11 @@ spec:
         x-descriptors:
         - urn:alm:descriptor:text
       version: v1alpha1
-  description: NBDE Tang Server operator allows Tang Server deployment on OpenShift
-  displayName: NBDE Tang Server
+  description: NBDE Tang Server operator
+  displayName: nbde-tang-server
   icon:
-  - base64data: iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAAH4h1yzAAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+UHDQ04D0XvFmUAAAShSURBVHja7Zy/bxtlHIc/753j2nEbV2kSHFqgqcqAEFQtUqUKWJAQSLCx8B+AxMAAaiXWLjDARiUWJkZGkMoIgiKBIkWlC1IpJch1Eye4udSxE5/vZUio3MY2/nX2+fI8UqXoWuf1836+9957d29f4/u+VR8kHj3w3Xs3//dDr31++sHPjvqk719g+u2D0SvEIIVEu7988ZPcg59/unR3SN/ANBzZuLXT9HjHhdSYSGPPR6uUzUDHg06q8OwHM5o7dZTxILRSHs8UWo4HL382r6C2G9CPlwoyMkP4Bg+NBX/sKNgrEWfCSLbLQrr67k0Zt/1YEJPxINTLQieV3QmPVv9AMwi1B9K5ROitjLwGoh3BgSjCaEfQyaWikXaXjcj2wMi/QE/jQOOlrtXNBxGMzeV4pF9gpN3fcgBa+iqvlZ8rfTdgrfT6ldPRM6fxaBVccsoZzLzPcp7TOMMrmdN41O9mUsdcvXBxdt/xaqmuxY+LdDuN91Zwjtv8fUYQ2IfeefzH9ma9+fuPQU4m8tfXdeOL0r7jfsXqjS+fJnMa5y41mg8IxuqqKkk3vr6j1cVqdCys9Nw705pdOBq+vF+1qnlBdNzt7p+xOudGDfLIH0AO9KWOskceeeSZ27djUM+OBzm9Pfdh62UeJI888sj3POB13chho4U3p2Trnc2kd7YCLX+zKRkTA/lDjnLnJ5uuEGtGtVTXX99uylD2yCOP/AAZysOM/PV1/Xal1HQ9ZjN6ed1G8sgjjzzyox7tkafkER+ve/iNoqfFT9cU+j1mF6Rzri68/1S44oGv3YUIERJPHjGUOuKII4444ogjzpR1/wdSjtLziUhJHJp2u/4Mt6WII4444ogjjjjiiMdtrl4qePrl8mqknrJmjrt66aMFEkccccQRRxxxxBFnytoLNpAeu5DS1JPJjv69caQ717ZU/tsfb3FZq+xCUnNnJzsTd43++X1b5WU/1PsBznHEEUccccQRR/wATFnN3paKnc6qHKOtot90u8VWU1a/EnTXRqL7Kd5QVkR8f/mWqnc734HsxCsZPfvWPKWOOOKII4444ogjjrhYxIs4pQ5UO8SIof3fmuLyPdXuB/R4uzNwwmjm5BElJhLjH3qp4Cn/Q1kr1yqRWhMaJayVDp9w5bxtut63leEdCB0IHQid0IHQgdCB0IHQgdAhygztLdtG0ZO/zbP3tmE4RtOPZ+MTOjC8A6EDoQOhA6EDoQOhA6EDoYOGtBq2Uq6qsOTJW67R462wUjLrKncuren57PiHXvV25P1ZYwl0u8z3lkDPPJNieAdCB0IHQgdCB0IHQid0IHQgdIgViThI2LpVei6hJ17NKHc+o6A22AW+xjWqrPm6fdXT2lJVxpqxfpzMmc7wDoQOhA6EDoQOhA6EDoQOhA7DZGibEqzevid/MwitdO8Xalr5taJ62YbyiLRWCTR7JqXZ51MyrpFC6DUnaTRzKia7QEvS3MlwdzbO19cV+IGqa4GMO/jf71esJiYdHT9zjOEdCB0IHQgdCB0IHQgdCB0IHXonERcR4xolM67qWcmEUMpu0spNxWNHBTYEZniHg8C/TaaTP8oei14AAAAASUVORK5CYII=
-    mediatype: image/png
+  - base64data: ""
+    mediatype: ""
   install:
     spec:
       deployments: null
@@ -168,13 +168,13 @@ spec:
   keywords:
   - nbde
   - tang
+  - server
+  - security
   links:
-  - name: Tang Operator
-    url: https://github.com/openshift/nbde-tang-server
-  maintainers:
-  - email: sarroutb@redhat.com
-    name: Sergio Arroutbi Braojos
+  - name: Nbde Tang Server
+    url: https://nbde-tang-server.domain
   maturity: alpha
   provider:
-    name: Red Hat
+    name: openshift
+    url: https://github.com/openshift/nbde-tang-server
   version: 0.0.0

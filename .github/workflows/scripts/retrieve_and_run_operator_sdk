@@ -16,7 +16,7 @@
 set -x -e
 
 OPERATOR_SDK_DEFAULT_RELEASE_VERSION="v1.36.0"
-DEFAULT_BUNDLE_IMG="quay.io/sec-eng-special/tang-operator-bundle"
+DEFAULT_BUNDLE_IMG="quay.io/sec-eng-special/nbde-tang-server-bundle"
 DEFAULT_TIMEOUT="5m"
 DEFAULT_GITHUB_BRANCH="main"
 
@@ -31,8 +31,8 @@ test -z "${GITHUB_BRANCH}" && GITHUB_BRANCH="main"
 ARCH=$(case $(uname -m) in x86_64) echo -n amd64 ;; aarch64) echo -n arm64 ;; *) echo -n "$(uname -m)" ;; esac)
 OS=$(uname | awk '{print tolower($0)}')
 
-MAKEFILE_BASE_PATH="https://raw.githubusercontent.com/latchset/tang-operator/${GITHUB_BRANCH}/Makefile"
-MAKEFILE_BASE_PATH_FROM_SHA="https://raw.githubusercontent.com/latchset/tang-operator/${GITHUB_SHA}/Makefile"
+MAKEFILE_BASE_PATH="https://raw.githubusercontent.com/openshift/nbde-tang-server/${GITHUB_BRANCH}/Makefile"
+MAKEFILE_BASE_PATH_FROM_SHA="https://raw.githubusercontent.com/openshift/nbde-tang-server/${GITHUB_SHA}/Makefile"
 
 # Guess version from Makefile
 guess_version() {

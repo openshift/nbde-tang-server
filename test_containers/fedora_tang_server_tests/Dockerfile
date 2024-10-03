@@ -26,7 +26,7 @@ RUN chmod 755 /usr/bin/tangd-test-entrypoint
 RUN chmod 755 /usr/bin/tangd-health-check
 RUN chmod 755 /usr/libexec/tangd
 RUN ln -s /usr/libexec/tangd /usr/bin/tangd
-RUN git clone https://github.com/latchset/tang /root/tang
+RUN git clone https://github.com/openshift/tang /root/tang
 RUN cd /root/tang && mkdir -p build && cd build && meson .. && ninja
 RUN dnf remove -y git cmake http-parser-devel
 

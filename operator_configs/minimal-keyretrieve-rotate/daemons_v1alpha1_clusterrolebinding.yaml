@@ -9,5 +9,5 @@ roleRef:
   name: pod-reader-executor
 subjects:
   - kind: ServiceAccount
-    name: tang-operator-controller-manager
+    name: nbde-tang-server-controller-manager
     namespace: default

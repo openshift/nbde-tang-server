@@ -2,10 +2,10 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
-  name: tang-operator
+  name: nbde-tang-server
   namespace: openshift-marketplace
 spec:
   displayName: "Red Hat"
   publisher: "Red Hat"
   sourceType: grpc
-  image: quay.io/sec-eng-special/tang-operator-index:VERSION_HERE
+  image: quay.io/sec-eng-special/nbde-tang-server-index:VERSION_HERE

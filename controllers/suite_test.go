@@ -28,7 +28,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 	//+kubebuilder:scaffold:imports
 )
 

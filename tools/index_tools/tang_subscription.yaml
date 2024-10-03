@@ -3,12 +3,12 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   labels:
-    operators.coreos.com/tang-operator.openshift-operators: ""
-  name: tang-operator
+    operators.coreos.com/nbde-tang-server.openshift-operators: ""
+  name: nbde-tang-server
   namespace: openshift-operators
 spec:
   channel: "stable"
   installPlanApproval: Automatic
-  name: tang-operator
-  source: tang-operator
+  name: nbde-tang-server
+  source: nbde-tang-server
   sourceNamespace: openshift-marketplace
