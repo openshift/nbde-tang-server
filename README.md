@@ -89,7 +89,7 @@ Versions released up to date of the operator and the operator-bundle are:
 
 ## Installation
 
-In order to install the operator, you must have previously installed
+In order to install this operator, you must have previously installed
 an OpenShift/K8S cluster. For small computers, **CRC** (Code Ready Containers)
 project is recommended. In case normal OpenShift cluster is used,
 installation should not differ from the CRC one. Ultimately, the operator has
