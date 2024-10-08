@@ -15,6 +15,9 @@ COPY main.go main.go
 COPY api/ api/
 COPY controllers/ controllers/
 
+# Copy license file
+COPY LICENSE /licenses/
+
 # Build
 RUN echo "GOARCH=${goarch}"
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go

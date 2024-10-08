@@ -18,3 +18,6 @@ LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 COPY bundle/manifests /manifests/
 COPY bundle/metadata /metadata/
 COPY bundle/tests/scorecard /tests/scorecard/
+
+# Copy LICENSE to /licenses directory
+COPY LICENSE /licenses/
