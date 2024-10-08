@@ -14,9 +14,7 @@ ARG goarch=amd64
 COPY main.go main.go
 COPY api/ api/
 COPY controllers/ controllers/
-
-# Copy license file
-COPY LICENSE /licenses/
+COPY LICENSE LICENSE
 
 # Build
 RUN echo "GOARCH=${goarch}"
@@ -27,6 +25,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /
 COPY --from=builder /workspace/manager .
+COPY --from=builder /workspace/LICENSE /licenses/
 USER 65532:65532
 
 ENTRYPOINT ["/manager"]
