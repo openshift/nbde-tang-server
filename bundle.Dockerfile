@@ -1,5 +1,19 @@
 FROM scratch
 
+# Include required labels (for Konflux deployment)
+LABEL com.redhat.component="NBDE Tang Server (Bundle)"
+LABEL distribution-scope="public"
+LABEL name="nbde-tang-server-bundle"
+LABEL release="1.1.0"
+LABEL version="1.1.0"
+LABEL url="https://github.com/openshift/nbde-tang-server"
+LABEL vendor="Red Hat, Inc."
+LABEL description="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL io.k8s.description="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL summary="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL io.k8s.display-name="NBDE Tang Server"
+LABEL io.openshift.tags="openshift,operator,nbde,network,security,storage,disk,unlocking"
+
 # Core bundle labels.
 LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
 LABEL operators.operatorframework.io.bundle.manifests.v1=manifests/

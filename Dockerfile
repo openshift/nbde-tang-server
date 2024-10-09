@@ -23,6 +23,21 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
 FROM gcr.io/distroless/static:nonroot
+
+# Include Konflux required labels
+LABEL com.redhat.component="NBDE Tang Server"
+LABEL distribution-scope="public"
+LABEL name="nbde-tang-server"
+LABEL release="1.1.0"
+LABEL version="1.1.0"
+LABEL url="https://github.com/openshift/nbde-tang-server"
+LABEL vendor="Red Hat, Inc."
+LABEL description="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL io.k8s.description="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL summary="The NBDE Tang Server Operator allows NBDE technology deployment on OpenShift"
+LABEL io.k8s.display-name="NBDE Tang Server"
+LABEL io.openshift.tags="openshift,operator,nbde,network,security,storage,disk,unlocking"
+
 WORKDIR /
 COPY --from=builder /workspace/manager .
 COPY --from=builder /workspace/LICENSE /licenses/
