@@ -487,6 +487,6 @@ As it can be observed, execution of operator-sdk scorecard tests are passing suc
 [Golang installation](https://go.dev/doc/install)\
 [OpenShift CLI Installation](https://docs.openshift.com/container-platform/4.2/cli_reference/openshift_cli/getting-started-cli.html#cli-installing-cli_cli-developer-commands)\
 [Validating Operators using the scorecard tool](https://docs.okd.io/latest/operators/operator_sdk/osdk-scorecard.html)\
-[Tang Operator Test Suite](https://github.com/RedHat-SP-Security/tang-operator-tests)
-[Konflux Documentation](https://konflux-ci.dev/docs/)
+[Tang Operator Test Suite](https://github.com/RedHat-SP-Security/tang-operator-tests)\
+[Konflux Documentation](https://konflux-ci.dev/docs/)\
 [Konflux: Building an Operator Lifecycle Manager (OLM) Operator](https://konflux-ci.dev/docs/advanced-how-tos/building-olm/)
