@@ -5,7 +5,7 @@ metadata:
 spec:
   params: [ ]
   tasks:
-    - name: clone-and-ci-lint
+    - name: clone-ci-lint-gosec
       taskSpec:
         volumes:
           - name: source
@@ -50,4 +50,5 @@ spec:
               git log -1
               go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
               golangci-lint -v run --timeout 5m0s ./...
+              bash ./hack/gosec.sh
               exit $? # exit with the status of the tests
