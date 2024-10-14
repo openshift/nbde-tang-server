@@ -32,7 +32,7 @@ type TangServerSpec struct {
 
 	// Replicas is the Tang Server amount to bring up
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Amount of replicas to launch"
-	Replicas uint32 `json:"replicas"`
+	Replicas int32 `json:"replicas"`
 
 	// Persistent Volume Claim to store the keys
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Persistent Volume Claim to attach to (default:tangserver-pvc)"
@@ -57,7 +57,7 @@ type TangServerSpec struct {
 	// PodListenPort is the port where pods will listen for traffic
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Port where Pod will listen "
 	// +optional
-	PodListenPort uint32 `json:"podListenPort,omitempty"`
+	PodListenPort int32 `json:"podListenPort,omitempty"`
 
 	// Secret is the secret name to use to download image appropriately
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Secret name to use for container download"
@@ -67,7 +67,7 @@ type TangServerSpec struct {
 	// ServiceListenPort is the port where service will listen for traffic
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Port where service will listen"
 	// +optional
-	ServiceListenPort uint32 `json:"serviceListenPort,omitempty"`
+	ServiceListenPort int32 `json:"serviceListenPort,omitempty"`
 
 	// ResourceRequest is the resource request to perform for each pod
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Resources Request for Tang Server"
@@ -175,11 +175,11 @@ type TangServerStatus struct {
 	// Tang Server Running provides information about the Running Replicas
 	// +operator-sdk:csv:customresourcedefinitions:type=status,xDescriptors="urn:alm:descriptor:text",displayName="Tang Server Running Replicas"
 	// +optional
-	Running uint32 `json:"running"`
+	Running int32 `json:"running"`
 	// Tang Server Ready provides information about the Ready Replicas
 	// +operator-sdk:csv:customresourcedefinitions:type=status,xDescriptors="urn:alm:descriptor:text",displayName="Tang Server Ready Replicas"
 	// +optional
-	Ready uint32 `json:"ready"`
+	Ready int32 `json:"ready"`
 	// Tang Server Service External URL provides information about the External Service URL
 	// +operator-sdk:csv:customresourcedefinitions:type=status,xDescriptors="urn:alm:descriptor:text",displayName="Tang Server External URL"
 	// +optional

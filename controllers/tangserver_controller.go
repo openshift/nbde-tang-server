@@ -18,9 +18,10 @@ package controllers
 
 import (
 	"context"
+	"crypto/rand"
 	"crypto/sha256"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"os"
 	"time"
 
@@ -90,7 +91,11 @@ func dumpToErrFile(msg string) {
 func getSHA256() string {
 	data := make([]byte, 10)
 	for i := range data {
-		data[i] = byte(rand.Intn(256))
+		d, err := rand.Int(rand.Reader, big.NewInt(256))
+		if err != nil {
+			panic(err)
+		}
+		data[i] = byte(d.Int64())
 	}
 	sha := fmt.Sprintf("%x", sha256.Sum256(data))
 	return sha
@@ -312,15 +317,18 @@ func (r *TangServerReconciler) CreateNewKeysIfNecessary(k KeyObtainInfo) bool {
 	} else {
 		GetLogInstance().Info("Using default active keys", "Key Amount", requiredActiveKeyPairs)
 	}
-	GetLogInstance().Info("createNewKeysIfNecessary", "Active Keys", uint32(len(k.TangServer.Status.ActiveKeys)), "Required Active Keys", requiredActiveKeyPairs)
+	GetLogInstance().Info("createNewKeysIfNecessary", "Active Keys", int(len(k.TangServer.Status.ActiveKeys)),
+		"Required Active Keys", requiredActiveKeyPairs)
 	// Only create if more than one required active key pairs. Otherwise, they are automatically created
-	if uint32(len(k.TangServer.Status.ActiveKeys)) < requiredActiveKeyPairs && requiredActiveKeyPairs > 1 {
+	if int(len(k.TangServer.Status.ActiveKeys)) < int(requiredActiveKeyPairs) && requiredActiveKeyPairs > 1 {
 		if err := createNewPairOfKeys(k); err != nil {
 			GetLogInstance().Error(err, "Unable to create new keys", "KeyObtainInfo", k)
 			r.Recorder.Event(k.TangServer, "Error", "NewKeys", "Unable to create new pair of keys")
 		} else {
-			GetLogInstance().Info("New Active Keys Created", "KeyObtainInfo", k, "Active Keys", uint32(len(k.TangServer.Status.ActiveKeys)), "Required Active Keys", requiredActiveKeyPairs)
-			r.Recorder.Event(k.TangServer, "Normal", "NewKeys", fmt.Sprintf("Created %d active pair of keys", uint32(len(k.TangServer.Status.ActiveKeys))))
+			GetLogInstance().Info("New Active Keys Created", "KeyObtainInfo", k, "Active Keys",
+				len(k.TangServer.Status.ActiveKeys), "Required Active Keys", requiredActiveKeyPairs)
+			r.Recorder.Event(k.TangServer, "Normal", "NewKeys", fmt.Sprintf("Created %d active pair of keys",
+				len(k.TangServer.Status.ActiveKeys)))
 			return true
 		}
 	}

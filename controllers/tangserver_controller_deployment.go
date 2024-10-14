@@ -67,8 +67,8 @@ func getDeployment(cr *daemonsv1alpha1.TangServer) *appsv1.Deployment {
 }
 
 // getDeploymentReadyReplicas function returns ready replicas
-func getDeploymentReadyReplicas(deployment *appsv1.Deployment) uint32 {
-	return uint32(deployment.Status.ReadyReplicas)
+func getDeploymentReadyReplicas(deployment *appsv1.Deployment) int32 {
+	return deployment.Status.ReadyReplicas
 }
 
 // isDeploymentReady returns a true bool if the deployment has all its pods ready

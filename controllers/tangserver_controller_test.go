@@ -101,7 +101,7 @@ var _ = Describe("TangServer controller", func() {
 			By("By checking complete empty specs are valid")
 			emptyTangServer := &daemonsv1alpha1.TangServer{}
 			Expect(emptyTangServer.Spec.KeyPath).Should(Equal(""))
-			Expect(emptyTangServer.Spec.Replicas).Should(Equal(uint32(0)))
+			Expect(emptyTangServer.Spec.Replicas).Should(Equal(int32(0)))
 			Expect(emptyTangServer.Spec.Image).Should(Equal(""))
 			Expect(emptyTangServer.Spec.Version).Should(Equal(""))
 		})

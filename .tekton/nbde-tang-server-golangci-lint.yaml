@@ -1,0 +1,63 @@
+kind: Pipeline
+apiVersion: tekton.dev/v1
+metadata:
+  name: golangci-lint
+spec:
+  params: [ ]
+  tasks:
+    - name: clone-ci-lint-check-gosec
+      taskSpec:
+        volumes:
+          - name: source
+            emptyDir: { }
+        steps:
+          - image: docker.io/library/golang:1.23.2
+            env:
+              - name: COMPONENT
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.annotations['appstudio.openshift.io/component']
+              - name: REVISION
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/sha']
+              - name: URL
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/source-repo-url']
+            computeResources:
+              limits:
+                cpu: 8
+                memory: 4Gi
+              requests:
+                cpu: 500m
+                memory: 1Gi
+            volumeMounts:
+              - name: source
+                mountPath: /workspace
+            script: |
+              #!/bin/bash
+              set -ex
+              echo "COMPONENT:$COMPONENT"
+              echo "REVISION:$REVISION"
+              echo "URL:$URL"
+              if [ -z "$URL" ] || [ -z "$REVISION" ]; then
+                echo "URL and REVISION not set"
+                exit 0
+              fi
+              echo "Initializing the env vars"
+              echo "URL: $URL"
+              echo "REVISION: $REVISION"
+              mkdir /workspace/source
+              cd /workspace/source
+              git init
+              git remote add origin $URL
+              git fetch origin $REVISION
+              git checkout FETCH_HEAD
+              git log -1
+              go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+              golangci-lint -v run --timeout 5m0s ./...
+              go install honnef.co/go/tools/cmd/staticcheck@latest
+              staticcheck ./...
+              bash ./hack/gosec.sh
+              exit $? # exit with the status of the tests

@@ -40,8 +40,8 @@ func getServiceName(tangserver *daemonsv1alpha1.TangServer) string {
 }
 
 // getServicePort function returns service name
-func getServicePort(tangserver *daemonsv1alpha1.TangServer) uint32 {
-	servicePort := uint32(tangserver.Spec.ServiceListenPort)
+func getServicePort(tangserver *daemonsv1alpha1.TangServer) int32 {
+	servicePort := tangserver.Spec.ServiceListenPort
 	if servicePort == 0 {
 		servicePort = DEFAULT_SERVICE_PORT
 	}
@@ -90,7 +90,7 @@ func getService(tangserver *daemonsv1alpha1.TangServer) *corev1.Service {
 			Ports: []corev1.ServicePort{
 				{
 					Name:       DEFAULT_SERVICE_PROTO,
-					Port:       int32(servicePort),
+					Port:       servicePort,
 					TargetPort: intstr.FromInt(int(getPodListenPort(tangserver))),
 				},
 			},

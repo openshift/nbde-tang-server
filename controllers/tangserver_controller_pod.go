@@ -29,7 +29,7 @@ const DEFAULT_TANGSERVER_PVC_NAME = "tangserver-pvc"
 const DEFAULT_TANGSERVER_SECRET = "tangserversecret"
 
 // getPodListenPort function returns the internal port where tangserver will listen
-func getPodListenPort(cr *daemonsv1alpha1.TangServer) uint32 {
+func getPodListenPort(cr *daemonsv1alpha1.TangServer) int32 {
 	if cr.Spec.PodListenPort != 0 {
 		return cr.Spec.PodListenPort
 	}

@@ -10,11 +10,16 @@ finalizers
 Github
 GOARCH
 Golang
+gosec
 grcov
 healthcheck
 keypath
 Killercoda
 killercoda
+Konflux
+konflux
+Lifecycle
+lifecycle
 llvm
 Makefile
 Markdown
