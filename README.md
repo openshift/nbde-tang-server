@@ -321,7 +321,7 @@ specifying appropriate image, and push it with **make podman-bundle-build podman
 
 ```bash
 $ make bundle IMG="quay.io/sec-eng-special/tang-operator:v1.0.13"
-$ make podman-bundle-build podman-bundle-push BUNDLE_IMG="quay.io/sarroutb/tang-operator-bundle:v1.0.13"
+$ make podman-bundle-build podman-bundle-push BUNDLE_IMG="quay.io/sec-eng-special/tang-operator-bundle:v1.0.13"
 ...
 podman push sec-eng-special/tang-operator-bundle:v1.0.13
 The push refers to repository [quay.io/sec-eng-special/tang-operator-bundle]
