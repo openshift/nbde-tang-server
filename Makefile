@@ -29,8 +29,8 @@ BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 # This variable is used to construct full image tags for bundle and catalog images.
 #
 # For example, running 'make bundle-build bundle-push catalog-build catalog-push' will build and push both
-# quay.io/tang-operator-bundle:$VERSION and quay.io/tang-operator-catalog:$VERSION.
-IMAGE_TAG_BASE ?= sec-eng-special/tang-operator
+# quay.io/nbde-tang-server-bundle:$VERSION and quay.io/nbde-tang-server-catalog:$VERSION.
+IMAGE_TAG_BASE ?= sec-eng-special/nbde-tang-server
 
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)

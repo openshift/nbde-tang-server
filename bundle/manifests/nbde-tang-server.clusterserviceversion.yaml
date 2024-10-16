@@ -25,10 +25,10 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2024-10-14T17:29:40Z"
+    createdAt: "2024-10-16T16:33:35Z"
     operators.operatorframework.io/builder: operator-sdk-v1.37.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
-  name: tang-operator.v1.0.13
+  name: nbde-tang-server.v1.0.13
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -293,11 +293,11 @@ spec:
           - subjectaccessreviews
           verbs:
           - create
-        serviceAccountName: tang-operator-controller-manager
+        serviceAccountName: nbde-tang-server-controller-manager
       deployments:
       - label:
           control-plane: controller-manager
-        name: tang-operator-controller-manager
+        name: nbde-tang-server-controller-manager
         spec:
           replicas: 1
           selector:
@@ -328,7 +328,7 @@ spec:
                 - --leader-elect
                 command:
                 - /manager
-                image: quay.io/sec-eng-special/tang-operator:v1.0.13
+                image: quay.io/sec-eng-special/nbde-tang-server:v1.0.13
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -353,7 +353,7 @@ spec:
                   allowPrivilegeEscalation: false
               securityContext:
                 runAsNonRoot: true
-              serviceAccountName: tang-operator-controller-manager
+              serviceAccountName: nbde-tang-server-controller-manager
               terminationGracePeriodSeconds: 10
       permissions:
       - rules:
@@ -388,7 +388,7 @@ spec:
           verbs:
           - create
           - patch
-        serviceAccountName: tang-operator-controller-manager
+        serviceAccountName: nbde-tang-server-controller-manager
     strategy: deployment
   installModes:
   - supported: false
@@ -403,8 +403,8 @@ spec:
   - nbde
   - tang
   links:
-  - name: Tang Operator
-    url: https://github.com/latchset/tang-operator
+  - name: NBDE Tang Server
+    url: https://github.com/openshift/nbde-tang-server
   maintainers:
   - email: sarroutb@redhat.com
     name: Sergio Arroutbi Braojos

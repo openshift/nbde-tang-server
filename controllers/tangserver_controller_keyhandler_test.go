@@ -17,9 +17,9 @@ package controllers
 
 import (
 	"context"
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -27,8 +27,7 @@ var _ = Describe("TangServer controller keyhandler", func() {
 
 	// Define utility constants for object names
 	const (
-		TangserverName = "test-tangserver-keyhandler"
-		// TODO: test why it can not be tested in non default namespace
+		TangserverName            = "test-tangserver-keyhandler"
 		TangserverNamespace       = "default"
 		TangserverResourceVersion = "1"
 		TangServerTestKeyPath     = "/var/db/tang2"

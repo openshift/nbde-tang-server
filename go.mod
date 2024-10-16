@@ -1,4 +1,4 @@
-module github.com/latchset/tang-operator
+module github.com/openshift/nbde-tang-server
 
 go 1.23.2
 

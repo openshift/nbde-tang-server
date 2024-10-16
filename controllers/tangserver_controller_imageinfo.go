@@ -17,7 +17,7 @@ limitations under the License.
 package controllers
 
 import (
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 )
 
 const DEFAULT_APP_IMAGE = "registry.redhat.io/rhel9/tang"

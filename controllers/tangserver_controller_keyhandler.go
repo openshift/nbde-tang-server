@@ -19,7 +19,7 @@ package controllers
 import (
 	"strings"
 
-	daemonsv1alpha1 "github.com/latchset/tang-operator/api/v1alpha1"
+	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 )
 
 type SHAType uint8

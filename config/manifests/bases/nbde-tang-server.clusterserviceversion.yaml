@@ -4,7 +4,7 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-  name: tang-operator.v0.0.0
+  name: nbde-tang-server.v0.0.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -169,8 +169,8 @@ spec:
   - nbde
   - tang
   links:
-  - name: Tang Operator
-    url: https://github.com/latchset/tang-operator
+  - name: NBDE Tang Server
+    url: https://github.com/openshift/nbde-tang-server
   maintainers:
   - email: sarroutb@redhat.com
     name: Sergio Arroutbi Braojos

@@ -15,4 +15,4 @@ data:
       resourceName: e44fa0d3.redhat.com
 kind: ConfigMap
 metadata:
-  name: tang-operator-manager-config
+  name: nbde-tang-server-manager-config

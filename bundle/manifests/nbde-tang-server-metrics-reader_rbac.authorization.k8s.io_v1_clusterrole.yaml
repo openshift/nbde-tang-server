@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   creationTimestamp: null
-  name: tang-operator-metrics-reader
+  name: nbde-tang-server-metrics-reader
 rules:
 - nonResourceURLs:
   - /metrics
