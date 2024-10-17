@@ -4,7 +4,7 @@ config:
     # This value tells RapiDAST what schema should be used to read this configuration.
     # Therefore you should only change it if you update the configuration to a newer schema
     # It is intended to keep backward compatibility (newer RapiDAST running an older config)
-    configVersion: 4
+    configVersion: 5
 
 # `application` contains data related to the application, not to the scans.
 application:
@@ -30,7 +30,7 @@ scanners:
 
         passiveScan:
             # optional list of passive rules to disable
-            disabledRules: "2,10015,10027,10096,10024,10054"
+            disabledRules: "2,10015,10024,10027,10054,10096"
 
         activeScan:
             # If no policy is chosen, a default ("API-scan-minimal") will be selected
