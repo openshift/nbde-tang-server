@@ -157,7 +157,7 @@ of replicas (1) to use, is the recommended operator configuration to apply:
 ```bash
 $ oc apply -f operator_configs/minimal
 namespace/nbde created
-tangserver.daemons.redhat.com/tangserver created
+tangserver.nbde.openshift.io/tangserver created
 ```
 
 In case operator is appropriately executed, **nbde** namespace should contain
@@ -329,7 +329,7 @@ index 041d9b0..f6f2bb9 100644
 @@ -38,17 +38,6 @@ spec:
        displayName: Tang Server
        kind: TangServer
-       name: tangservers.daemons.redhat.com
+       name: tangservers.nbde.openshift.io
 -      resources:
 -      - kind: Deployment
 -        version: v1

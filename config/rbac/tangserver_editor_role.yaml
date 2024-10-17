@@ -6,7 +6,7 @@ metadata:
   name: tangserver-editor-role
 rules:
 - apiGroups:
-  - daemons.redhat.com
+  - nbde.openshift.io
   resources:
   - tangservers
   verbs:
@@ -18,7 +18,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - daemons.redhat.com
+  - nbde.openshift.io
   resources:
   - tangservers/status
   verbs:

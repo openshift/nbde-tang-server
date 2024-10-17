@@ -45,9 +45,9 @@ done
 test -z "${namespace}" && namespace="default"
 test -z "${oc_client}" && oc_client="oc"
 
-sha1_1=$("${oc_client}" -n "${namespace}" get tangservers.daemons.redhat.com  -o json | jq '.items[0].status.hiddenKeys[0].sha1')
-sha1_2=$("${oc_client}" -n "${namespace}" get tangservers.daemons.redhat.com  -o json | jq '.items[0].status.hiddenKeys[1].sha1')
-replicas=$("${oc_client}" -n "${namespace}" get tangservers.daemons.redhat.com  -o json | jq '.items[0].spec.replicas')
+sha1_1=$("${oc_client}" -n "${namespace}" get tangservers.nbde.openshift.io  -o json | jq '.items[0].status.hiddenKeys[0].sha1')
+sha1_2=$("${oc_client}" -n "${namespace}" get tangservers.nbde.openshift.io  -o json | jq '.items[0].status.hiddenKeys[1].sha1')
+replicas=$("${oc_client}" -n "${namespace}" get tangservers.nbde.openshift.io  -o json | jq '.items[0].spec.replicas')
 
 if [ "${sha1_2}" == "null" ] || [ "${sha1_2}" == "" ];
 then
@@ -59,13 +59,13 @@ echo "Keeping key:[$sha1_1], deleting other keys"
 
 ftemp=$(mktemp)
 cat<<EOF>"${ftemp}"
-apiVersion: daemons.redhat.com/v1alpha1
+apiVersion: nbde.openshift.io/v1alpha1
 kind: TangServer
 metadata:
   name: tangserver-mini
   namespace: nbde
   finalizers:
-  - finalizer.daemons.tangserver.redhat.com
+  - finalizer.nbde.tangserver.openshift.io
 spec:
   replicas: ${replicas}
   hiddenKeys:

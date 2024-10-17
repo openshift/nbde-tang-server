@@ -1,11 +1,11 @@
 ---
-apiVersion: daemons.redhat.com/v1alpha1
+apiVersion: nbde.openshift.io/v1alpha1
 kind: TangServer
 metadata:
   name: tangserver
   namespace: nbde
   finalizers:
-  - finalizer.daemons.tangserver.redhat.com
+  - finalizer.nbde.tangserver.openshift.io
 spec:
   # Add fields here
   keyPath: /var/db/tang

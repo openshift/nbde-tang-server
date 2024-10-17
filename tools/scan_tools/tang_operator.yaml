@@ -9,7 +9,7 @@ config:
 # `application` contains data related to the application, not to the scans.
 application:
     shortName: "tangservers"
-    url: "https://api.ci-ln-ml9pxxk-76ef8.aws-2.ci.openshift.org:6443/apis/daemons.redhat.com/v1alpha1"
+    url: "https://api.ci-ln-ml9pxxk-76ef8.aws-2.ci.openshift.org:6443/apis/nbde.openshift.io/v1alpha1"
 
 # `general` is a section that will be applied to all scanners.
 general:
@@ -32,7 +32,7 @@ scanners:
         # define a scan through the ZAP scanner
         apiScan:
             apis:
-                apiUrl: "https://api.ci-ln-ml9pxxk-76ef8.aws-2.ci.openshift.org:6443/openapi/v3/apis/daemons.redhat.com/v1alpha1"
+                apiUrl: "https://api.ci-ln-ml9pxxk-76ef8.aws-2.ci.openshift.org:6443/openapi/v3/apis/nbde.openshift.io/v1alpha1"
 
         passiveScan:
             # optional list of passive rules to disable

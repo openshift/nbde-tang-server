@@ -45,7 +45,7 @@ import (
 )
 
 // Finalizer for tang server
-const DEFAULT_TANG_FINALIZER = "finalizer.daemons.tangserver.redhat.com"
+const DEFAULT_TANG_FINALIZER = "finalizer.nbde.tangserver.openshift.io"
 
 // Default recheck of keys when no active keys exit
 const DEFAULT_RECONCILE_TIMER_NO_ACTIVE_KEYS = 5 // seconds
@@ -141,9 +141,9 @@ func (r *TangServerReconciler) checkCRReadyForDeletion(ctx context.Context, tang
 	return ctrl.Result{}, nil
 }
 
-//+kubebuilder:rbac:groups=daemons.redhat.com,resources=tangservers,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=daemons.redhat.com,resources=tangservers/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=daemons.redhat.com,resources=tangservers/finalizers,verbs=update
+//+kubebuilder:rbac:groups=nbde.openshift.io,resources=tangservers,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=nbde.openshift.io,resources=tangservers/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=nbde.openshift.io,resources=tangservers/finalizers,verbs=update
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;create;update

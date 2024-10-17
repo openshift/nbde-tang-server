@@ -13,7 +13,7 @@ spec:
     - description: TangServer is the Schema for the tangservers API
       displayName: Tang Server
       kind: TangServer
-      name: tangservers.daemons.redhat.com
+      name: tangservers.nbde.openshift.io
       specDescriptors:
       - description: ClusterIP
         displayName: ClusterIP (empty by default)

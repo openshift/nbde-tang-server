@@ -57,7 +57,7 @@ test -z "${oc_client}" && oc_client="oc"
 getAdvURL() {
   if [ "${using_minikube}" != "yes" ];
   then
-    "${oc_client}" -n "${namespace}" get tangservers.daemons.redhat.com  -o json | \
+    "${oc_client}" -n "${namespace}" get tangservers.nbde.openshift.io  -o json | \
       jq '.items[0].status.serviceExternalURL' | tr -d '"'
   else
     port=$("${oc_client}" -n "${namespace}" get service -o json | jq '.items[0].spec.ports[0].nodePort')

@@ -26,7 +26,7 @@ scanners:
     zap:
         apiScan:
             apis:
-                apiUrl: "API_HOST_PORT_HERE/openapi/v3/apis/daemons.redhat.com/v1alpha1"
+                apiUrl: "API_HOST_PORT_HERE/openapi/v3/apis/nbde.openshift.io/v1alpha1"
 
         passiveScan:
             # optional list of passive rules to disable

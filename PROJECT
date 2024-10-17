@@ -15,8 +15,8 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: redhat.com
-  group: daemons
+  domain: openshift.io
+  group: nbde
   kind: TangServer
   path: github.com/openshift/nbde-tang-server/api/v1alpha1
   version: v1alpha1

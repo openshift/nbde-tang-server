@@ -5,11 +5,11 @@ metadata:
     alm-examples: |-
       [
         {
-          "apiVersion": "daemons.redhat.com/v1alpha1",
+          "apiVersion": "nbde.openshift.io/v1alpha1",
           "kind": "TangServer",
           "metadata": {
             "finalizers": [
-              "finalizer.daemons.tangserver.redhat.com"
+              "finalizer.nbde.tangserver.openshift.io"
             ],
             "name": "tangserver",
             "namespace": "nbde"
@@ -25,7 +25,7 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2024-10-16T16:33:35Z"
+    createdAt: "2024-10-17T11:15:24Z"
     operators.operatorframework.io/builder: operator-sdk-v1.37.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
   name: nbde-tang-server.v1.0.13
@@ -37,7 +37,7 @@ spec:
     - description: TangServer is the Schema for the tangservers API
       displayName: Tang Server
       kind: TangServer
-      name: tangservers.daemons.redhat.com
+      name: tangservers.nbde.openshift.io
       resources:
       - kind: Deployment
         version: v1
@@ -256,7 +256,7 @@ spec:
           - update
           - watch
         - apiGroups:
-          - daemons.redhat.com
+          - nbde.openshift.io
           resources:
           - tangservers
           verbs:
@@ -268,13 +268,13 @@ spec:
           - update
           - watch
         - apiGroups:
-          - daemons.redhat.com
+          - nbde.openshift.io
           resources:
           - tangservers/finalizers
           verbs:
           - update
         - apiGroups:
-          - daemons.redhat.com
+          - nbde.openshift.io
           resources:
           - tangservers/status
           verbs:

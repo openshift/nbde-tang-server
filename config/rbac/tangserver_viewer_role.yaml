@@ -6,7 +6,7 @@ metadata:
   name: tangserver-viewer-role
 rules:
 - apiGroups:
-  - daemons.redhat.com
+  - nbde.openshift.io
   resources:
   - tangservers
   verbs:
@@ -14,7 +14,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - daemons.redhat.com
+  - nbde.openshift.io
   resources:
   - tangservers/status
   verbs:
