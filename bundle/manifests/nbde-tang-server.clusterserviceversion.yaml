@@ -25,10 +25,10 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2024-10-17T11:15:24Z"
+    createdAt: "2024-10-18T10:17:01Z"
     operators.operatorframework.io/builder: operator-sdk-v1.37.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
-  name: nbde-tang-server.v1.0.13
+  name: nbde-tang-server.v1.0.14
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -328,7 +328,7 @@ spec:
                 - --leader-elect
                 command:
                 - /manager
-                image: quay.io/sec-eng-special/nbde-tang-server:v1.0.13
+                image: quay.io/sec-eng-special/nbde-tang-server:v1.0.14
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -411,4 +411,4 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.0.13
+  version: 1.0.14
