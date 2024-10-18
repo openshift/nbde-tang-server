@@ -13,4 +13,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: quay.io/sec-eng-special/nbde-tang-server
-  newTag: v1.0.13
+  newTag: v1.0.14
