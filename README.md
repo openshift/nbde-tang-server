@@ -239,7 +239,7 @@ index 9a41c6a..db12a82 100644
 # standard setup, you can:
 # - use the VERSION as arg of the bundle target (e.g. make bundle VERSION=1.0.14)
 # - use environment variables to overwrite this value (e.g. export VERSION=1.0.14)
--VERSION ?= 1.0.9
+-VERSION ?= 1.0.13
 +VERSION ?= 1.0.14
 ```
 
