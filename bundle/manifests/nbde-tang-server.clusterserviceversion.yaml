@@ -316,7 +316,7 @@ spec:
                 - --logtostderr=true
                 - --v=10
                 - --http2-disable
-                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.15.0
+                image: registry.redhat.io/openshift4/ose-kube-rbac-proxy:latest
                 name: kube-rbac-proxy
                 ports:
                 - containerPort: 8443

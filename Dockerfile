@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM golang:1.23 as builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:v1.22.7-202410111609.gc451559.el9 as builder
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -18,7 +18,7 @@ COPY LICENSE LICENSE
 
 # Build
 RUN echo "GOARCH=${goarch}"
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go
+RUN GOFLAGS='' CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go
 
 # Use well-known UBI9 micro image
 FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:7f376b75faf8ea546f28f8529c37d24adcde33dca4103f4897ae19a43d58192b
