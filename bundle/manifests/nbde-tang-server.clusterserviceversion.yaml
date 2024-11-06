@@ -34,6 +34,7 @@ metadata:
     operators.operatorframework.io.bundle.mediatype.v1: registry+v1
     operators.operatorframework.io.bundle.metadata.v1: metadata/
     operators.operatorframework.io.bundle.package.v1: nbde-tang-server
+    operators.openshift.io/valid-subscription: '["OpenShift Container Platform", "OpenShift Platform Plus"]'
     features.operators.openshift.io/disconnected: "false"
     features.operators.openshift.io/fips-compliant: "false"
     features.operators.openshift.io/proxy-aware: "false"
@@ -332,7 +333,7 @@ spec:
                 - --logtostderr=true
                 - --v=10
                 - --http2-disable
-                image: registry.redhat.io/openshift4/ose-kube-rbac-proxy:latest
+                image: registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9@sha256:c15928ecc2f0ff370f567a2ca909b7a71e2becaff0af649275396e59232b7b8c
                 name: kube-rbac-proxy
                 ports:
                 - containerPort: 8443

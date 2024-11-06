@@ -6,10 +6,13 @@ ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
 WORKDIR /code
 COPY ./ ./
 
+RUN echo "SNAPSHOT=${SNAPSHOT}"
+RUN bash -c printenv
+#RUN echo "IMAGE_VERSION=$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')"
 # Replace the bundle image in the repository with the one specified by the IMG build argument.
 # TODO: Replace bundle appropriately once image is changed
 # RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
-#    "s|${ORIGINAL_IMG}|${IMG}|g" {} \+; \
+#    "s|${ORIGINAL_IMG}|$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')|g" {} \+; \
 #    grep -rq "${ORIGINAL_IMG}" bundle/ && \
 #    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
 #    grep -r "${IMG}" bundle/
