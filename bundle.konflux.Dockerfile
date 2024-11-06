@@ -7,11 +7,12 @@ WORKDIR /code
 COPY ./ ./
 
 # Replace the bundle image in the repository with the one specified by the IMG build argument.
-RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
-    "s|${ORIGINAL_IMG}|${IMG}|g" {} \+; \
-    grep -rq "${ORIGINAL_IMG}" bundle/ && \
-    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
-    grep -r "${IMG}" bundle/
+# TODO: Replace bundle appropriately once image is changed
+# RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
+#    "s|${ORIGINAL_IMG}|${IMG}|g" {} \+; \
+#    grep -rq "${ORIGINAL_IMG}" bundle/ && \
+#    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
+#    grep -r "${IMG}" bundle/
 
 FROM scratch
 
