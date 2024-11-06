@@ -43,7 +43,7 @@ metadata:
     features.operators.openshift.io/tls-profiles: "false"
     features.operators.openshift.io/token-auth-aws: "false"
     features.operators.openshift.io/token-auth-azure: "false"
-    features.operators.openshift.io/token-auth-gcp: "false"  
+    features.operators.openshift.io/token-auth-gcp: "false"
   name: nbde-tang-server.v1.1.0
   namespace: placeholder
 spec:
