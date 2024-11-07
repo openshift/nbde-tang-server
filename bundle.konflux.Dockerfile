@@ -1,23 +1,24 @@
-FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
+##### UNCOMMENT NEXT BLOCK OF CODE ONCE IMAGE SUBSTITUTION IS CLARIFIED:
+# FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
+#
+# TODO: Set image to correct version
+# ARG IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
+# ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
+# WORKDIR /code
+# COPY ./ ./
+#
+# RUN echo "SNAPSHOT=${SNAPSHOT}"
+# RUN bash -c printenv
+# RUN echo "IMAGE_VERSION=$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')"
+#  Replace the bundle image in the repository with the one specified by the IMG build argument.
+#  TODO: Replace bundle appropriately once image is changed
+#  RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
+#     "s|${ORIGINAL_IMG}|$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')|g" {} \+; \
+#     grep -rq "${ORIGINAL_IMG}" bundle/ && \
+#     { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
+#     grep -r "${IMG}" bundle/
 
-#TODO: Set image to correct version
-ARG IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
-ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
-WORKDIR /code
-COPY ./ ./
-
-RUN echo "SNAPSHOT=${SNAPSHOT}"
-RUN bash -c printenv
-#RUN echo "IMAGE_VERSION=$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')"
-# Replace the bundle image in the repository with the one specified by the IMG build argument.
-# TODO: Replace bundle appropriately once image is changed
-# RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
-#    "s|${ORIGINAL_IMG}|$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')|g" {} \+; \
-#    grep -rq "${ORIGINAL_IMG}" bundle/ && \
-#    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
-#    grep -r "${IMG}" bundle/
-
-FROM scratch
+FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:7f376b75faf8ea546f28f8529c37d24adcde33dca4103f4897ae19a43d58192b
 
 # Include required labels (for Konflux deployment)
 LABEL com.redhat.component="NBDE Tang Server (Bundle)"
@@ -47,12 +48,10 @@ LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v4
 LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 
-# Copy files to locations specified by labels.
-COPY --from=builder /code/bundle/manifests /manifests/
-COPY --from=builder /code/bundle/metadata /metadata/
-COPY --from=builder /code/bundle/tests/scorecard /tests/scorecard/
-
-# Copy files to locations specified by labels.
+### Copy files to locations specified by labels
+# COPY --from=builder /code/bundle/manifests /manifests/
+# COPY --from=builder /code/bundle/metadata /metadata/
+# COPY --from=builder /code/bundle/tests/scorecard /tests/scorecard/
 COPY bundle/manifests /manifests/
 COPY bundle/metadata /metadata/
 COPY bundle/tests/scorecard /tests/scorecard/
