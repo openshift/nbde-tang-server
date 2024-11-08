@@ -1,22 +1,22 @@
 ##### UNCOMMENT NEXT BLOCK OF CODE ONCE IMAGE SUBSTITUTION IS CLARIFIED:
-# FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
 #
 # TODO: Set image to correct version
-# ARG IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
-# ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
-# WORKDIR /code
-# COPY ./ ./
+ARG IMG=registry.redhat.io/nbde-tang-server/tang-rhel9-operator@sha256:562e5f1677dbf5cd9feb00a7270e78c57b28f5177a7bf4bd2d39b2a5cd451da8
+ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
+WORKDIR /code
+COPY ./ ./
 #
 # RUN echo "SNAPSHOT=${SNAPSHOT}"
 # RUN bash -c printenv
-# RUN echo "IMAGE_VERSION=$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')"
+RUN echo "IMAGE_VERSION=$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')"
 #  Replace the bundle image in the repository with the one specified by the IMG build argument.
 #  TODO: Replace bundle appropriately once image is changed
-#  RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
-#     "s|${ORIGINAL_IMG}|$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')|g" {} \+; \
-#     grep -rq "${ORIGINAL_IMG}" bundle/ && \
-#     { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
-#     grep -r "${IMG}" bundle/
+RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
+   "s|${ORIGINAL_IMG}|$(echo '${SNAPSHOT}' | base64 -d | jq -r '.components[].containerImage')|g" {} \+; \
+   grep -rq "${ORIGINAL_IMG}" bundle/ && \
+   { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
+   grep -r "${IMG}" bundle/
 
 FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:7f376b75faf8ea546f28f8529c37d24adcde33dca4103f4897ae19a43d58192b
 

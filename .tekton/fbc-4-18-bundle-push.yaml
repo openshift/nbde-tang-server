@@ -24,7 +24,7 @@ spec:
   - name: output-image
     value: quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/fbc-4-18-bundle:{{revision}}
   - name: dockerfile
-    value: bundle.Dockerfile
+    value: bundle.konflux.Dockerfile
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
