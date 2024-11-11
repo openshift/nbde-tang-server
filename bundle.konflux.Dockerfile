@@ -1,5 +1,4 @@
-##### UNCOMMENT NEXT BLOCK OF CODE ONCE IMAGE SUBSTITUTION IS CLARIFIED:
- FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
 #
 # TODO: Set image to correct version
 ARG IMG=registry.redhat.io/nbde-tang-server/tang-rhel9-operator@sha256:562e5f1677dbf5cd9feb00a7270e78c57b28f5177a7bf4bd2d39b2a5cd451da8
@@ -10,7 +9,6 @@ COPY ./ ./
 RUN echo "SNAPSHOT=${SNAPSHOT}"
 RUN bash -c printenv
 # Replace the bundle image in the repository with the one specified by the IMG build argument.
-# TODO: Replace bundle appropriately once image is changed
 RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
    "s|${ORIGINAL_IMG}|${IMG})|g" {} \+; grep -rq "${ORIGINAL_IMG}" bundle/ && \
    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
@@ -50,9 +48,6 @@ LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 COPY --from=builder /code/bundle/manifests /manifests/
 COPY --from=builder /code/bundle/metadata /metadata/
 COPY --from=builder /code/bundle/tests/scorecard /tests/scorecard/
-#COPY bundle/manifests /manifests/
-#COPY bundle/metadata /metadata/
-#COPY bundle/tests/scorecard /tests/scorecard/
 
 # Copy LICENSE to /licenses directory
 COPY LICENSE /licenses/
