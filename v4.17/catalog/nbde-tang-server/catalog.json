@@ -1,0 +1,57 @@
+{
+    "schema": "olm.package",
+    "name": "nbde-tang-server",
+    "defaultChannel": "stable",
+    "icon": {
+        "base64data": "iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAAH4h1yzAAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+UHDQ04D0XvFmUAAAShSURBVHja7Zy/bxtlHIc/753j2nEbV2kSHFqgqcqAEFQtUqUKWJAQSLCx8B+AxMAAaiXWLjDARiUWJkZGkMoIgiKBIkWlC1IpJch1Eye4udSxE5/vZUio3MY2/nX2+fI8UqXoWuf1836+9957d29f4/u+VR8kHj3w3Xs3//dDr31++sHPjvqk719g+u2D0SvEIIVEu7988ZPcg59/unR3SN/ANBzZuLXT9HjHhdSYSGPPR6uUzUDHg06q8OwHM5o7dZTxILRSHs8UWo4HL382r6C2G9CPlwoyMkP4Bg+NBX/sKNgrEWfCSLbLQrr67k0Zt/1YEJPxINTLQieV3QmPVv9AMwi1B9K5ROitjLwGoh3BgSjCaEfQyaWikXaXjcj2wMi/QE/jQOOlrtXNBxGMzeV4pF9gpN3fcgBa+iqvlZ8rfTdgrfT6ldPRM6fxaBVccsoZzLzPcp7TOMMrmdN41O9mUsdcvXBxdt/xaqmuxY+LdDuN91Zwjtv8fUYQ2IfeefzH9ma9+fuPQU4m8tfXdeOL0r7jfsXqjS+fJnMa5y41mg8IxuqqKkk3vr6j1cVqdCys9Nw705pdOBq+vF+1qnlBdNzt7p+xOudGDfLIH0AO9KWOskceeeSZ27djUM+OBzm9Pfdh62UeJI888sj3POB13chho4U3p2Trnc2kd7YCLX+zKRkTA/lDjnLnJ5uuEGtGtVTXX99uylD2yCOP/AAZysOM/PV1/Xal1HQ9ZjN6ed1G8sgjjzzyox7tkafkER+ve/iNoqfFT9cU+j1mF6Rzri68/1S44oGv3YUIERJPHjGUOuKII4444ogjzpR1/wdSjtLziUhJHJp2u/4Mt6WII4444ogjjjjiiMdtrl4qePrl8mqknrJmjrt66aMFEkccccQRRxxxxBFnytoLNpAeu5DS1JPJjv69caQ717ZU/tsfb3FZq+xCUnNnJzsTd43++X1b5WU/1PsBznHEEUccccQRR/wATFnN3paKnc6qHKOtot90u8VWU1a/EnTXRqL7Kd5QVkR8f/mWqnc734HsxCsZPfvWPKWOOOKII4444ogjjrhYxIs4pQ5UO8SIof3fmuLyPdXuB/R4uzNwwmjm5BElJhLjH3qp4Cn/Q1kr1yqRWhMaJayVDp9w5bxtut63leEdCB0IHQid0IHQgdCB0IHQgdAhygztLdtG0ZO/zbP3tmE4RtOPZ+MTOjC8A6EDoQOhA6EDoQOhA6EDoYOGtBq2Uq6qsOTJW67R462wUjLrKncuren57PiHXvV25P1ZYwl0u8z3lkDPPJNieAdCB0IHQgdCB0IHQid0IHQgdIgViThI2LpVei6hJ17NKHc+o6A22AW+xjWqrPm6fdXT2lJVxpqxfpzMmc7wDoQOhA6EDoQOhA6EDoQOhA7DZGibEqzevid/MwitdO8Xalr5taJ62YbyiLRWCTR7JqXZ51MyrpFC6DUnaTRzKia7QEvS3MlwdzbO19cV+IGqa4GMO/jf71esJiYdHT9zjOEdCB0IHQgdCB0IHQgdCB0IHXonERcR4xolM67qWcmEUMpu0spNxWNHBTYEZniHg8C/TaaTP8oei14AAAAASUVORK5CYII=",
+        "mediatype": "image/png"
+    }
+}
+{
+    "schema": "olm.channel",
+    "name": "stable",
+    "package": "nbde-tang-server",
+    "entries": [
+        {
+            "name": "nbde-tang-server.v1.1.0",
+            "skipRange": "<1.1.0"
+        }
+    ]
+}
+{
+    "schema": "olm.bundle",
+    "name": "nbde-tang-server.v1.1.0",
+    "package": "nbde-tang-server",
+    "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle:0c38bd0df5a0336d95847c3b4da3a1eebcea5cd7",
+    "properties": [
+        {
+            "type": "olm.gvk",
+            "value": {
+                "group": "nbde.openshift.io",
+                "kind": "TangServer",
+                "version": "v1alpha1"
+            }
+        },
+        {
+            "type": "olm.package",
+            "value": {
+                "packageName": "nbde-tang-server",
+                "version": "1.1.0"
+            }
+        }
+    ],
+    "relatedImages": [
+        {
+            "name": "",
+            "image": "registry.redhat.io/openshift4/ose-kube-rbac-proxy-rhel9@sha256:c15928ecc2f0ff370f567a2ca909b7a71e2becaff0af649275396e59232b7b8c"
+        },
+        {
+            "name": "nbde-tang-server-bundle",
+            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle:0c38bd0df5a0336d95847c3b4da3a1eebcea5cd7"
+        },
+        {
+            "name": "nbde-tang-server",
+            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:121cfbae9a598816c18e7e8d68ba5549539b7a5c"
+        }
+    ]
+}
