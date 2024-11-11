@@ -32,6 +32,10 @@ spec:
     - linux/arm64
     - linux/ppc64le
     - linux/s390x
+  - name: hermetic
+    value: "true"
+  - name: prefetch-input
+    value: '{"type": "gomod", "path": "."}'
   - name: dockerfile
     value: Dockerfile
   pipelineSpec:
@@ -113,6 +117,9 @@ spec:
       type: string
     - default:
       - linux/x86_64
+      - linux/arm64
+      - linux/s390x
+      - linux/ppc64le
       description: List of platforms to build the container images on. The available
         set of values is determined by the configuration of the multi-platform-controller.
       name: build-platforms

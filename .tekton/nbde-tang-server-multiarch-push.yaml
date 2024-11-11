@@ -23,6 +23,10 @@ spec:
     value: '{{revision}}'
   - name: output-image
     value: quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:{{revision}}
+  - name: hermetic
+    value: "true"
+  - name: prefetch-input
+    value: '{"type": "gomod", "path": "."}'
   - name: dockerfile
     value: Dockerfile
   pipelineSpec:
