@@ -20,7 +20,7 @@ RUN echo "GOARCH=${goarch}"
 RUN GOFLAGS='' CGO_ENABLED=0 GOOS=linux GOARCH=${goarch} go build -a -o manager main.go
 
 # Use well-known UBI9 micro image
-FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:7f376b75faf8ea546f28f8529c37d24adcde33dca4103f4897ae19a43d58192b
+FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:3b1f4975e025fca77b7196a56e0481579dcd3b5e3701f99223204a90dfc25003
 
 # Include Konflux required labels
 LABEL com.redhat.component="NBDE Tang Server"
