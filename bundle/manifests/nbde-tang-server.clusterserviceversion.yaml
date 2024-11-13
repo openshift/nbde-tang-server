@@ -35,7 +35,7 @@ metadata:
     operators.operatorframework.io.bundle.metadata.v1: metadata/
     operators.operatorframework.io.bundle.package.v1: nbde-tang-server
     operators.openshift.io/valid-subscription: '["OpenShift Container Platform", "OpenShift Platform Plus"]'
-    features.operators.openshift.io/disconnected: "false"
+    features.operators.openshift.io/disconnected: "true"
     features.operators.openshift.io/fips-compliant: "false"
     features.operators.openshift.io/proxy-aware: "false"
     features.operators.openshift.io/cnf: "false"
