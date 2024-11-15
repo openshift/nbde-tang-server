@@ -32,7 +32,7 @@ LABEL io.k8s.display-name="NBDE Tang Server"
 LABEL io.openshift.tags="openshift,operator,nbde,network,security,storage,disk,unlocking"
 
 # Include referenced image so that it can be easily verified in the bundle
-LABEL konflux.referenced.image="quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:1c5be3b432e968c8ff495a30ef0bf730aefd5c508e75299f7497afce182894f9"
+LABEL konflux.referenced.image="quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53"
 
 # Core bundle labels.
 LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1

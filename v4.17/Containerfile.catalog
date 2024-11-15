@@ -18,3 +18,7 @@ LABEL operators.operatorframework.io.metrics.builder=operator-sdk-v1.37.0
 LABEL operators.operatorframework.io.metrics.mediatype.v1=metrics+v1
 LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v4
 LABEL operators.operatorframework.io.index.configs.v1=/configs
+
+# Include referenced image so that it can be easily verified in the bundle
+LABEL konflux.referenced.image="quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53"
+LABEL konflux.fbc.version="4.17"
