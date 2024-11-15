@@ -2,7 +2,7 @@ FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as bui
 #
 # TODO: Set image to correct version
 # ARG IMG=registry.redhat.io/nbde-tang-server/tang-rhel9-operator@sha256:562e5f1677dbf5cd9feb00a7270e78c57b28f5177a7bf4bd2d39b2a5cd451da8
-ARG IMG=quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:1c5be3b432e968c8ff495a30ef0bf730aefd5c508e75299f7497afce182894f9
+ARG IMG=quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53
 ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
 WORKDIR /code
 COPY ./ ./
