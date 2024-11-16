@@ -136,7 +136,7 @@
         },
         {
             "name": "nbde-tang-server",
-            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:eca661f52fc51aed75d5a62da4969d1f0c9ea86029680f32c2bbc8fc6cd5ee3a"
+            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53"
         }
     ]
 }
