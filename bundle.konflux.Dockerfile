@@ -1,6 +1,6 @@
 FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
 
-ARG IMG=quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53
+ARG IMG=quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:08f365b340150d7d91304d886f90bc9ed13192dc
 ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
 WORKDIR /code
 COPY ./ ./
@@ -31,7 +31,7 @@ LABEL io.k8s.display-name="NBDE Tang Server"
 LABEL io.openshift.tags="openshift,operator,nbde,network,security,storage,disk,unlocking"
 
 # Include referenced image so that it can be easily verified in the bundle
-LABEL konflux.referenced.image="quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:9ed11bd3865e986ff30eebeabd38934b07e50e53"
+LABEL konflux.referenced.image="quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:08f365b340150d7d91304d886f90bc9ed13192dc"
 
 # Core bundle labels.
 LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
