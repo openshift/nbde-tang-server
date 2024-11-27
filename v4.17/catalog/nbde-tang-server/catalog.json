@@ -22,7 +22,7 @@
     "schema": "olm.bundle",
     "name": "nbde-tang-server.v1.1.0",
     "package": "nbde-tang-server",
-    "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle:08f365b340150d7d91304d886f90bc9ed13192dc",
+    "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51",
     "properties": [
         {
             "type": "olm.gvk",
@@ -132,11 +132,11 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:08f365b340150d7d91304d886f90bc9ed13192dc"
+            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51"
         },
         {
             "name": "nbde-tang-server",
-            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:08f365b340150d7d91304d886f90bc9ed13192dc"
+            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:023e9e5c3e2d8abb7f1d2ae352493755c4018e4c35bff62ee9c01a1663a5703b"
         }
     ]
 }
