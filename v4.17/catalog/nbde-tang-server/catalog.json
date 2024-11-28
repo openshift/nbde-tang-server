@@ -46,7 +46,7 @@
                     "alm-examples": "[]",
                     "capabilities": "Basic Install",
                     "categories": "Security",
-                    "containerImage": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch:08f365b340150d7d91304d886f90bc9ed13192dc",
+                    "containerImage": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:023e9e5c3e2d8abb7f1d2ae352493755c4018e4c35bff62ee9c01a1663a5703b",
                     "createdAt": "2024-11-12T10:06:06Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
