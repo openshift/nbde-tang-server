@@ -22,7 +22,7 @@
     "schema": "olm.bundle",
     "name": "nbde-tang-server.v1.1.0",
     "package": "nbde-tang-server",
-    "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51",
+    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51",
     "properties": [
         {
             "type": "olm.gvk",
@@ -46,7 +46,7 @@
                     "alm-examples": "[]",
                     "capabilities": "Basic Install",
                     "categories": "Security",
-                    "containerImage": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:b3830d2492c1e274920f4f9dd2cb3cec6bfb0e23111af9ae711f6cf4542f608c",
+                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:b3830d2492c1e274920f4f9dd2cb3cec6bfb0e23111af9ae711f6cf4542f608c",
                     "createdAt": "2024-11-12T10:06:06Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
@@ -134,11 +134,11 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:bfd1478e581873ac19bfdcc351cff526e439557917ef4f892781432e8ee26e51"
         },
         {
             "name": "nbde-tang-server",
-            "image": "quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch@sha256:b3830d2492c1e274920f4f9dd2cb3cec6bfb0e23111af9ae711f6cf4542f608c"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:b3830d2492c1e274920f4f9dd2cb3cec6bfb0e23111af9ae711f6cf4542f608c"
         }
     ]
 }
