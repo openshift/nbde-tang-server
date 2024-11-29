@@ -20,5 +20,5 @@ LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v4
 LABEL operators.operatorframework.io.index.configs.v1=/configs
 
 # Include referenced image so that it can be easily verified in the bundle
-LABEL konflux.referenced.image="registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:b95dc39e012d390a3a7e1f34f3cd99241f8e0baedab5059a7ec1055e14000956"
+LABEL konflux.referenced.image="registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:e78a9aa2912b4d53555386d7d0b31e6b9ea40157b602f2bc926b0dcf18d6b187"
 LABEL konflux.fbc.version="4.18"
