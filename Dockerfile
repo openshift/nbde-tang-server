@@ -1,6 +1,7 @@
 # Build the manager binary
 FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:v1.22.9-202411201508.gd54e8ac.el8 AS builder
 
+# Workspace workdir
 WORKDIR /workspace
 
 # Copy the Go Modules manifests
