@@ -27,8 +27,6 @@ spec:
     value: /v4.17/
   - name: dockerfile
     value: /v4.17/Containerfile.catalog
-  - name: path-context
-    value: .
   - name: build-platforms
     value:
       - linux/x86_64
