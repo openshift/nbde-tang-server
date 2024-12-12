@@ -22,7 +22,7 @@
     "schema": "olm.bundle",
     "name": "nbde-tang-server.v1.1.0",
     "package": "nbde-tang-server",
-    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:75fc8349626c50ed3f0716c317e180a359c7e66624c5a9bbdd93c809f0bd9eb0",
+    "image": "registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:75fc8349626c50ed3f0716c317e180a359c7e66624c5a9bbdd93c809f0bd9eb0",
     "properties": [
         {
             "type": "olm.gvk",
@@ -46,7 +46,7 @@
                     "alm-examples": "[]",
                     "capabilities": "Basic Install",
                     "categories": "Security",
-                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:05e60ee26efd878f7f1f47fb5ed2f9c873614d2da30c0332d3da2325159f36c1",
+                    "containerImage": "registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:05e60ee26efd878f7f1f47fb5ed2f9c873614d2da30c0332d3da2325159f36c1",
                     "createdAt": "2024-11-12T10:06:06Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
@@ -134,11 +134,11 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:75fc8349626c50ed3f0716c317e180a359c7e66624c5a9bbdd93c809f0bd9eb0"
+            "image": "registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:75fc8349626c50ed3f0716c317e180a359c7e66624c5a9bbdd93c809f0bd9eb0"
         },
         {
             "name": "nbde-tang-server",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:05e60ee26efd878f7f1f47fb5ed2f9c873614d2da30c0332d3da2325159f36c1"
+            "image": "registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:05e60ee26efd878f7f1f47fb5ed2f9c873614d2da30c0332d3da2325159f36c1"
         }
     ]
 }
