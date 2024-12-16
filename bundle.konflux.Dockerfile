@@ -11,7 +11,7 @@ RUN chmod -R g+rwX ./ && find bundle/ && find bundle -type f -exec sed -i \
    { echo "Failed to replace image references"; exit 1; } || echo "Image references replaced" && \
    grep -r "${IMG}" bundle/
 
-FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:111395a0b54d220c4ad821602a4a28807d6c4fb2feb19b43a6468a9d5f257463
+FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:a22fffe0256af00176c8b4f22eec5d8ecb1cb1684d811c33b1f2832fd573260f
 
 # Include required labels (for Konflux deployment)
 LABEL com.redhat.component="NBDE Tang Server (Bundle)"
