@@ -203,8 +203,7 @@ def main():
     - parse parameters
     - perform mirroring
     """
-    args = parse_parameters()
-    run_command_sequence(args)
+    run_command_sequence(parse_parameters())
 
 if __name__ == '__main__':
     main()
