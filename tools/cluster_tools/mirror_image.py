@@ -97,7 +97,7 @@ def get_image_path(image):
     """
     This function returns the image path
     """
-    return image.split('/', 1)[1]
+    return 'openshift/' + image.split('/', 1)[1].split('/',1)[1]
 
 def get_user_password_from_file(file_name):
     """
@@ -128,7 +128,11 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, '\n', '#')
     send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password +
                          ' ' + api_server, ': ')
-    send_pexpect_command(child, '\n', '#')
+    index = child.expect([":", "#", pexpect.TIMEOUT])
+    if index == 0:
+        send_pexpect_command(child, 'yes', '#')
+    else:
+        send_pexpect_command(child, '\n', '#')
     send_pexpect_command(child, 'podman login -u kubeadmin -p $(oc whoami -t) ' +
                          LOCAL_REGISTRY, '#')
     send_pexpect_command(child, 'echo', '#')
@@ -140,6 +144,7 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'podman tag ' + args.original_image + ' ' + LOCAL_REGISTRY +
                          '/' + get_image_path(args.original_image), '#')
     send_pexpect_command(child, 'podman images | grep ' + LOCAL_REGISTRY, '#')
+    send_pexpect_command(child, 'podman push ' + LOCAL_REGISTRY + '/' + get_image_path(args.original_image), '#')
     send_pexpect_command(child, 'exit', '#')
     sys.stdout.flush()
     child.close()
