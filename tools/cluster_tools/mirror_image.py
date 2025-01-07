@@ -144,7 +144,8 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'podman tag ' + args.original_image + ' ' + LOCAL_REGISTRY +
                          '/' + get_image_path(args.original_image), '#')
     send_pexpect_command(child, 'podman images | grep ' + LOCAL_REGISTRY, '#')
-    send_pexpect_command(child, 'podman push ' + LOCAL_REGISTRY + '/' + get_image_path(args.original_image), '#')
+    send_pexpect_command(child, 'podman push ' + LOCAL_REGISTRY + '/' +
+                         get_image_path(args.original_image), '#')
     send_pexpect_command(child, 'exit', '#')
     sys.stdout.flush()
     child.close()
