@@ -26,6 +26,10 @@ spec:
     value: quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle-1-1:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
+  - name: hermetic
+    value: "true"
+  - name: prefetch-input
+    value: '{"type": "gomod", "path": "."}'
   - name: dockerfile
     value: bundle.konflux.Dockerfile
   pipelineSpec:
