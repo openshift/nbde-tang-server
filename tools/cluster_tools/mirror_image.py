@@ -79,12 +79,12 @@ def get_line(all_lines, key):
             return line
     return None
 
-def send_pexpect_command(child, command, expected):
+def send_pexpect_command(child, command, expected, t=120):
     """
     This function sends a command to the child and waits for the expected result
     """
     child.sendline(command)
-    child.expect(expected)
+    child.expect(expected, timeout=t)
     sys.stdout.flush()
 
 def get_image_registry(image):
@@ -136,7 +136,6 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'podman login -u kubeadmin -p $(oc whoami -t) ' +
                          LOCAL_REGISTRY, '#')
     send_pexpect_command(child, 'echo', '#')
-    child.expect('#')
     send_pexpect_command(child, 'podman login -u ' + user +
                          ' ' + get_image_registry(args.original_image), 'Password')
     send_pexpect_command(child, password, '#')
