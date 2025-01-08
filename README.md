@@ -116,7 +116,7 @@ bundle. For example, in case latest version is **1.1.0**, the command to execute
 will be:
 
 ```bash
-TODO: Insert operator installation here
+$ operator-sdk run bundle quay.io/sec-eng-special/nbde-tang-server-bundle:latest
 ```
 
 To install latest multi-arch image, execute:
