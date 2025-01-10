@@ -44,6 +44,8 @@ To do so, it follows next steps:
     -h, --help            show this help message and exit
     -c CLUSTER_PASSWORD, --cluster_password CLUSTER_PASSWORD
                             Cluster Password
+    -t CLUSTER_TOKEN, --cluster_token CLUSTER_TOKEN
+                            Cluster Token
     -o ORIGINAL_IMAGE, --original_image ORIGINAL_IMAGE
                             Original image name
     -f FILE_FOR_USER_PASSWORD, --file-for-user-password FILE_FOR_USER_PASSWORD
@@ -126,8 +128,10 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, '\n', '#')
     send_pexpect_command(child, 'chroot /host', '#')
     send_pexpect_command(child, '\n', '#')
-    send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password +
-                         ' ' + api_server, ': ')
+    if args.cluster_password:
+        send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password + ' ' + api_server, ': ')
+    elif args.cluster_token:
+        send_pexpect_command(child, 'oc login --token=' + args.cluster_token + ' --server=' + api_server, '#')
     index = child.expect([":", "#", pexpect.TIMEOUT])
     if index == 0:
         send_pexpect_command(child, 'yes', '#')
@@ -148,6 +152,7 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'exit', '#')
     sys.stdout.flush()
     child.close()
+
 
 def execute_command(cmd):
     """
@@ -183,12 +188,15 @@ def parse_parameters():
     This function initiates next input parameters
     - Original image name (--original_image)
     - Cluster Password (--cluster_password)
+    - Cluster Token (--cluster_token)
     - Cluster Name (optional, it will be guessed if not provided) (--cluster_name)
     """
     parser = argparse.ArgumentParser(prog='mirror_image.py',
         description='Mirror image from an initiating registry to the cluster local mirror')
     parser.add_argument('-c', '--cluster_password', help='Cluster Password',
-                        required=True)
+                        required=False)
+    parser.add_argument('-t', '--cluster_token', help='Cluster Token',
+                        required=False)
     parser.add_argument('-o', '--original_image', help='Original image name',
         required=True)
     parser.add_argument('-f', '--file-for-user-password',
