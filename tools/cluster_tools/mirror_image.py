@@ -129,9 +129,11 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'chroot /host', '#')
     send_pexpect_command(child, '\n', '#')
     if args.cluster_password:
-        send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password + ' ' + api_server, ': ')
+        send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password +
+            ' ' + api_server, ': ')
     elif args.cluster_token:
-        send_pexpect_command(child, 'oc login --token=' + args.cluster_token + ' --server=' + api_server, '#')
+        send_pexpect_command(child, 'oc login --token=' + args.cluster_token + ' --server=' +
+            api_server, '#')
     index = child.expect([":", "#", pexpect.TIMEOUT])
     if index == 0:
         send_pexpect_command(child, 'yes', '#')
@@ -194,7 +196,7 @@ def parse_parameters():
     parser = argparse.ArgumentParser(prog='mirror_image.py',
         description='Mirror image from an initiating registry to the cluster local mirror')
     parser.add_argument('-c', '--cluster_password', help='Cluster Password',
-                        required=False)
+                        required=True)
     parser.add_argument('-t', '--cluster_token', help='Cluster Token',
                         required=False)
     parser.add_argument('-o', '--original_image', help='Original image name',
@@ -210,13 +212,28 @@ def parse_parameters():
                         required=False)
     return parser.parse_args()
 
+def check_parameters(args):
+    """
+    This function checks the input parameters
+    """
+    if not args.cluster_password and not args.cluster_token:
+        print("ERROR: Cluster Password or Cluster Token must be provided")
+        return False
+    if not args.file_for_user_password and not (args.user and args.password):
+        print("ERROR: File for User and Password or User and Password must be provided")
+        return False
+    return True
+
 def main():
     """
     Main method:
     - parse parameters
     - perform mirroring
     """
-    run_command_sequence(parse_parameters())
+    params = parse_parameters()
+    if not check_parameters(params):
+        sys.exit(1)
+    run_command_sequence(params)
 
 if __name__ == '__main__':
     main()
