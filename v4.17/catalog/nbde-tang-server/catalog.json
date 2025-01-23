@@ -22,7 +22,7 @@
     "schema": "olm.bundle",
     "name": "nbde-tang-server.v1.1.0",
     "package": "nbde-tang-server",
-    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:15b9b28e375c57adfb3c5b78be0312bea09c5be8759f9264c9a23c82d086f334",
+    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:b0bb3c502dad2e5b4773a56850e831b9e6cc203cfa2f4eab6f2db7ce328a3fad",
     "properties": [
         {
             "type": "olm.gvk",
@@ -134,7 +134,7 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:15b9b28e375c57adfb3c5b78be0312bea09c5be8759f9264c9a23c82d086f334"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:b0bb3c502dad2e5b4773a56850e831b9e6cc203cfa2f4eab6f2db7ce328a3fad"
         },
         {
             "name": "nbde-tang-server",
