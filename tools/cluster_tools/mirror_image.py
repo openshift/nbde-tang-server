@@ -117,17 +117,18 @@ def get_user_password_from_args(args):
         return args.user, args.password
     return get_user_password_from_file(args.file_for_user_password)
 
-def launch_node_commands(node, api_server, args):
+def launch_chroot_commands(child):
     """
-    This function launches commands in the node
+    This function launch chroot command
     """
-    user, password = get_user_password_from_args(args)
-    child = pexpect.spawnu('oc debug nodes/' + node, timeout=NODE_CONNECTION_TIMEOUT)
-    child.logfile_read = sys.stdout
-    child.expect('# ')
     send_pexpect_command(child, '\n', '#')
     send_pexpect_command(child, 'chroot /host', '#')
     send_pexpect_command(child, '\n', '#')
+
+def launch_cluster_auth_commands(child, args, api_server):
+    """
+    This function launch cluster authentication commands
+    """
     if args.cluster_password:
         send_pexpect_command(child, 'oc login -u kubeadmin -p ' + args.cluster_password +
             ' ' + api_server, ': ')
@@ -139,6 +140,12 @@ def launch_node_commands(node, api_server, args):
         send_pexpect_command(child, 'yes', '#')
     else:
         send_pexpect_command(child, '\n', '#')
+
+def launch_podman_commands(child, args):
+    """
+    This function launch podman authentication commands
+    """
+    user, password = get_user_password_from_args(args)
     send_pexpect_command(child, 'podman login -u kubeadmin -p $(oc whoami -t) ' +
                          LOCAL_REGISTRY, '#')
     send_pexpect_command(child, 'echo', '#')
@@ -151,10 +158,20 @@ def launch_node_commands(node, api_server, args):
     send_pexpect_command(child, 'podman images | grep ' + LOCAL_REGISTRY, '#')
     send_pexpect_command(child, 'podman push ' + LOCAL_REGISTRY + '/' +
                          get_image_path(args.original_image), '#')
+
+def launch_node_commands(node, api_server, args):
+    """
+    This function launches commands in the node
+    """
+    child = pexpect.spawnu('oc debug nodes/' + node, timeout=NODE_CONNECTION_TIMEOUT)
+    child.logfile_read = sys.stdout
+    child.expect('# ')
+    launch_chroot_commands(child)
+    launch_cluster_auth_commands(child, args, api_server)
+    launch_podman_commands(child, args)
     send_pexpect_command(child, 'exit', '#')
     sys.stdout.flush()
     child.close()
-
 
 def execute_command(cmd):
     """
