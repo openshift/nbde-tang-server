@@ -80,7 +80,7 @@
                 "installModes": [
                     {
                         "type": "OwnNamespace",
-                        "supported": true
+                        "supported": false
                     },
                     {
                         "type": "SingleNamespace",
