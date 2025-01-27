@@ -92,7 +92,7 @@
                     },
                     {
                         "type": "AllNamespaces",
-                        "supported": false
+                        "supported": true
                     }
                 ],
                 "keywords": [
