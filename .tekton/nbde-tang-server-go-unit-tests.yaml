@@ -11,7 +11,7 @@ spec:
           - name: source
             emptyDir: { }
         steps:
-          - image: docker.io/library/golang:1.23.3
+          - image: docker.io/library/golang:1.23.6
             env:
               - name: URL
                 valueFrom:
