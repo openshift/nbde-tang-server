@@ -21,7 +21,7 @@ import (
 	"crypto/tls"
 	"os"
 
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	daemonsv1alpha1 "github.com/openshift/nbde-tang-server/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
