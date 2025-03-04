@@ -1,0 +1,25 @@
+---
+kind: ImageDigestMirrorSet
+apiVersion: config.openshift.io/v1
+metadata:
+  name: nbde-tang-server-fbc-staging-index
+  namespace: openshift-marketplace
+spec:
+  imageDigestMirrors:
+    - source: registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle
+      mirrors:
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle-1-1
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle
+    - source: registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-1-1
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch
+    - source: registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle
+      mirrors:
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle-1-1
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-bundle
+    - source: registry.stage.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator
+      mirrors:
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch-1-1
+        - quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/nbde-tang-server-multiarch
+
