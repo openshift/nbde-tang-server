@@ -88,7 +88,7 @@ Versions released up to date of the operator and the operator-bundle are:
 - v1.0.12: Fix issues reported by gosec tool
 - v1.0.13: Libraries update, Update Go version (1.22.5 -> 1.23.2)
 - v1.0.14: Rename tang-operator to nbde-tang-server. Use nbde.openshift.io instead of daemons.redhat.com domain
--  v1.1.0: Konflux release candidate
+-  v1.1.0: First Konflux release
 
 ## Installation
 
