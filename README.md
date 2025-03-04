@@ -31,7 +31,8 @@ scale-in/out, scale up/down or traffic load balancing.
 
 This operator also allows automation of certain operations, which are error-prone
 if executed manually. Examples of these operations are:
-- server deployment and configuration
+- server deployment
+- configuration
 - key rotation
 - hidden keys deletion
 
