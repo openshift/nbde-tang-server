@@ -20,10 +20,11 @@
 
 ## Introduction
 
-The NBDE Tang server operator helps to provide [NBDE](https://access.redhat.com/articles/6987053)
+The NBDE Tang server operator provides [NBDE](https://access.redhat.com/articles/6987053)
 technology for OpenShift/K8S. It deploys one or several Tang servers automatically.
 The Tang server container image to launch is configurable, and will use the latest one
-available by default. This operator has been developed using [operator-sdk](https://sdk.operatorframework.io/).
+available by default. This operator has been developed using [operator-sdk](https://sdk.operatorframework.io/)
+framework.
 
 The operator avoids having to follow all Tang manual installation steps,
 and leverages some of the features provided by OpenShift: multi-replica deployment,
@@ -36,8 +37,8 @@ if executed manually. Examples of these operations are:
 - key rotation
 - hidden keys deletion
 
-Up to date, it can be deployed as a CRD, containing its proper
-configuration values to perform appropriate Tang server operations.
+Up to date, it is deployed through a CRD (Custom Resource Definition),
+containing its proper configuration values to perform appropriate Tang server operations.
 
 An introductory video can be seen in next link:
 [NBDE in OpenShift: tang-operator basics](https://youtu.be/hmMSIkBoGoY)
@@ -108,7 +109,7 @@ OpenShift client to install is `oc`, whose installation can be
 checked in the [Links](#links) section.
 
 Once OpenShift/K8S cluster is installed, operator can be installed
-with operator-sdk.
+through operator-sdk.
 operator-sdk installation is described in the [Links](#links) section.
 
 In order to deploy the latest version of the operator, check latest released
@@ -125,12 +126,12 @@ To install latest multi-arch image, execute:
 $ operator-sdk run bundle quay.io/sec-eng-special/tang-operator-bundle:multi-arch
 ```
 
-If the message **OLM has successfully installed** is displayed, it is normally a
-sign of a proper installation of the operator.
+If the message **OLM has successfully installed** is displayed, it is a sign of a
+proper installation of the operator.
 
 If a message similar to **"failed open: failed to do request: context deadline exceeded"**,
-it is possible that a timeout is taking place. Try to increase the timeout in case
-your cluster takes long time to deploy. To do so, the option **--timeout** can be
+is shown, it is possible that a timeout is taking place. Try to increase the timeout values
+in case your cluster takes long time to deploy. To do so, the option **--timeout** can be
 used (if not used, default time is 2m, which stands for two minutes):
 
 ```bash
@@ -147,7 +148,7 @@ the following is observed when prompting for installed pods:
 $ oc get pods
 NAME                                                  READY STATUS    RESTARTS AGE
 dbbd1837106ec169542546e7ad251b95d27c3542eb0409c1e     0/1   Completed 0        82s
-quay-io-tang-nbde-tang-server-bundle-v1.1.0          1/1   Running   0        90s
+quay-io-tang-nbde-tang-server-bundle-v1.1.0           1/1   Running   0        90s
 nbde-tang-server-controller-manager-5c9488d8dd-mgmsf  2/2   Running   0        52s
 ```
 
@@ -163,7 +164,7 @@ namespace/nbde created
 tangserver.nbde.openshift.io/tangserver created
 ```
 
-In case operator is appropriately executed, **nbde** namespace should contain
+In case operator is appropriately configured, **nbde** namespace should contain
 the service, deployment and its related pods:
 
 ```
