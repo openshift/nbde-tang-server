@@ -1,6 +1,6 @@
 FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
 
-ARG IMG=registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:9799f7ac5389f87db46868e4bcad12544d8b818e801b7f12af6a9ed9420d8661
+ARG IMG=registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:927372ac371437938a7199ff55e603da285a0e6a9c74c646344613655991f69b
 ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
 WORKDIR /code
 COPY ./ ./
@@ -28,7 +28,7 @@ LABEL io.k8s.display-name="NBDE Tang Server"
 LABEL io.openshift.tags="openshift,operator,nbde,network,security,storage,disk,unlocking"
 
 # Include referenced image so that it can be easily verified in the bundle
-LABEL konflux.referenced.image="registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:9799f7ac5389f87db46868e4bcad12544d8b818e801b7f12af6a9ed9420d8661"
+LABEL konflux.referenced.image="registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:927372ac371437938a7199ff55e603da285a0e6a9c74c646344613655991f69b"
 
 # Core bundle labels.
 LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
