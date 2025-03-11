@@ -7,8 +7,9 @@
     value: quay.io/konflux-ci/tekton-catalog/task-fbc-related-image-check:0.2@sha256:7a56...a6f
     By default, the program will check quay.io/konflux-ci/tekton-catalog/ as the pattern to check.
     If a different pattern is needed, it can be passed through the --pattern-line parameter.
-    The program will check return the latest version in the container repository
-    Program requires next tools:
+    The program will return the latest version in the container repository and will update the
+    images in case --update parameter is provided.
+    The program requires next tools:
     - skopeo
     - sed
     - grep
