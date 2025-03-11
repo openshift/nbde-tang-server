@@ -21,7 +21,8 @@ import subprocess
 from os import listdir
 from os.path import isfile, join
 
-FILTER_LINE = "quay.io/konflux-ci/tekton-catalog/"
+DEFAULT_FILTER_LINE = "quay.io/konflux-ci/tekton-catalog/"
+DEFAULT_DIRECTORY = "./.tekton"
 
 class Logger: # pylint: disable=too-few-public-methods
     """ Logger class """
@@ -37,8 +38,9 @@ def parse_arguments():
     """ Parse the arguments of the program """
     parser = argparse.ArgumentParser(
         description="Check the latest versions of the tools in the given directory")
-    parser.add_argument("--directory", help=
-                        "The directory to check the versions of the tools")
+    parser.add_argument("--directory", default=DEFAULT_DIRECTORY, help=
+                        "The directory to check the versions of the tools " +
+                        f"(default: {DEFAULT_DIRECTORY})")
     parser.add_argument("--pattern", help=
                         "The pattern parameter to use to check the versions of the tools")
     parser.add_argument("--file-pattern", help=
@@ -149,7 +151,7 @@ class VersionChecker:
                 return False
         return True
 
-    def process_latest_versions(self, file, pattern_filter=FILTER_LINE):
+    def process_latest_versions(self, file, pattern_filter=DEFAULT_FILTER_LINE):
         """ Get the latest versions of the tools in the file """
         for line in file:
             if pattern_filter in line:
@@ -191,9 +193,15 @@ class VersionChecker:
         self.logger.vprint(onlyfiles)
         return onlyfiles
 
+    def directory_to_parse(self):
+        """ Get the directory to parse """
+        if self.input_args.directory:
+            return self.input_args.directory
+        return DEFAULT_DIRECTORY
+
     def check_versions(self):
         """ Read all files in directory """
-        files = self.read_files(self.input_args.directory)
+        files = self.read_files(self.directory_to_parse())
         for file in files:
             with open(file, encoding='utf-8') as f:
                 if self.input_args.pattern:
