@@ -37,8 +37,9 @@ if executed manually. Examples of these operations are:
 - key rotation
 - hidden keys deletion
 
-Up to date, it is deployed through a CRD (Custom Resource Definition),
-containing its proper configuration values to perform appropriate Tang server operations.
+Up to date, it is deployed through a [CRD](https://github.com/openshift/nbde-tang-server/blob/main/bundle/manifests/nbde-tang-server.clusterserviceversion.yaml#L52)
+(Custom Resource Definition), containing its proper configuration values to perform
+appropriate Tang server operations.
 
 An introductory video can be seen in next link:
 [NBDE in OpenShift: tang-operator basics](https://youtu.be/hmMSIkBoGoY)
