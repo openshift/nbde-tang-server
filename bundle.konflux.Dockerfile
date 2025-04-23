@@ -1,7 +1,7 @@
 FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:rhel_9_1.22 as builder
 
-ARG IMG=registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:9799f7ac5389f87db46868e4bcad12544d8b818e801b7f12af6a9ed9420d8661
-ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.0
+ARG IMG=registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd
+ARG ORIGINAL_IMG=quay.io/sec-eng-special/nbde-tang-server:v1.1.1
 WORKDIR /code
 COPY ./ ./
 
@@ -17,8 +17,8 @@ FROM registry.access.redhat.com/ubi9/ubi-micro@sha256:414cfa255ea10eaef4528a26d5
 LABEL com.redhat.component="NBDE Tang Server (Bundle)"
 LABEL distribution-scope="public"
 LABEL name="nbde-tang-server-bundle"
-LABEL release="1.1.0"
-LABEL version="1.1.0"
+LABEL release="1.1.1"
+LABEL version="1.1.1"
 LABEL url="https://github.com/openshift/nbde-tang-server"
 LABEL vendor="Red Hat, Inc."
 LABEL description="The NBDE Tang Server operator allows NBDE technology deployment on OpenShift"

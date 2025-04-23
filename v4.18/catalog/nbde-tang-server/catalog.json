@@ -13,16 +13,16 @@
     "package": "nbde-tang-server",
     "entries": [
         {
-            "name": "nbde-tang-server.v1.1.0",
+            "name": "nbde-tang-server.v1.1.1",
             "skipRange": "<1.1.0"
         }
     ]
 }
 {
     "schema": "olm.bundle",
-    "name": "nbde-tang-server.v1.1.0",
+    "name": "nbde-tang-server.v1.1.1",
     "package": "nbde-tang-server",
-    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:b0bb3c502dad2e5b4773a56850e831b9e6cc203cfa2f4eab6f2db7ce328a3fad",
+    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:ba767c001dd49f9144f96bcba0c364f853abfe8de0dd40b48cc084864c077358",
     "properties": [
         {
             "type": "olm.gvk",
@@ -36,7 +36,7 @@
             "type": "olm.package",
             "value": {
                 "packageName": "nbde-tang-server",
-                "version": "1.1.0"
+                "version": "1.1.1"
             }
         },
         {
@@ -46,7 +46,7 @@
                     "alm-examples": "[]",
                     "capabilities": "Basic Install",
                     "categories": "Security",
-                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:9799f7ac5389f87db46868e4bcad12544d8b818e801b7f12af6a9ed9420d8661",
+                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd",
                     "createdAt": "2024-11-12T10:06:06Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
@@ -134,11 +134,11 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:b0bb3c502dad2e5b4773a56850e831b9e6cc203cfa2f4eab6f2db7ce328a3fad"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:ba767c001dd49f9144f96bcba0c364f853abfe8de0dd40b48cc084864c077358"
         },
         {
             "name": "nbde-tang-server",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:9799f7ac5389f87db46868e4bcad12544d8b818e801b7f12af6a9ed9420d8661"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd"
         }
     ]
 }

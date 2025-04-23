@@ -25,8 +25,8 @@ metadata:
         }
       ]
     capabilities: Basic Install
-    createdAt: "2024-10-28T12:14:13Z"
-    operators.operatorframework.io/builder: operator-sdk-v1.37.0
+    createdAt: "2025-04-23T11:53:21Z"
+    operators.operatorframework.io/builder: operator-sdk-v1.39.1
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
     operators.operatorframework.io.bundle.channel.default.v1: stable
     operators.operatorframework.io.bundle.channels.v1: stable
@@ -45,7 +45,7 @@ metadata:
     features.operators.openshift.io/token-auth-aws: "false"
     features.operators.openshift.io/token-auth-azure: "false"
     features.operators.openshift.io/token-auth-gcp: "false"
-  name: nbde-tang-server.v1.1.0
+  name: nbde-tang-server.v1.1.1
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -345,7 +345,7 @@ spec:
                 - --leader-elect
                 command:
                 - /manager
-                image: quay.io/sec-eng-special/nbde-tang-server:v1.1.0
+                image: quay.io/sec-eng-special/nbde-tang-server:v1.1.1
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -428,4 +428,4 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.0
+  version: 1.1.1
