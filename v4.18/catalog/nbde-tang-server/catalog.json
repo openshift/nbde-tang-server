@@ -51,7 +51,7 @@
                     "capabilities": "Basic Install",
                     "categories": "Security",
                     "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd",
-                    "createdAt": "2024-11-12T10:06:06Z",
+                    "createdAt": "2025-04-24T18:06:07Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
                     "features.operators.openshift.io/csi": "false",
