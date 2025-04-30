@@ -268,30 +268,30 @@ spec:
         - "false"
     - name: fbc-target-index-pruning-check
       params:
-        - name: IMAGE_URL
-          value: $(tasks.build-image-index.results.IMAGE_URL)
-        - name: IMAGE_DIGEST
-          value: $(tasks.build-image-index.results.IMAGE_DIGEST)
-        - name: TARGET_INDEX
-          value: registry.redhat.io/redhat/redhat-operator-index
-        - name: RENDERED_CATALOG_DIGEST
-          value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
+      - name: IMAGE_URL
+        value: $(tasks.build-image-index.results.IMAGE_URL)
+      - name: IMAGE_DIGEST
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+      - name: TARGET_INDEX
+        value: registry.redhat.io/redhat/redhat-operator-index
+      - name: RENDERED_CATALOG_DIGEST
+        value: $(tasks.validate-fbc.results.RENDERED_CATALOG_DIGEST)
       runAfter:
-        - validate-fbc
+      - validate-fbc
       taskRef:
         params:
-          - name: name
-            value: fbc-target-index-pruning-check
-          - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-fbc-target-index-pruning-check:0.1@sha256:e83a377233b9ef4d8bcfd4b42d7b00d1bb45bd65bf7eaf06a9676b3c1facb955
-          - name: kind
-            value: task
+        - name: name
+          value: fbc-target-index-pruning-check
+        - name: bundle
+          value: quay.io/konflux-ci/tekton-catalog/task-fbc-target-index-pruning-check:0.1@sha256:a4d0bedb2aeed06d060b5a38f3dc020625e1c11665fc1a0317765c1f90edb485
+        - name: kind
+          value: task
         resolver: bundles
       when:
-        - input: $(params.skip-checks)
-          operator: in
-          values:
-            - "false"
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
     - name: deprecated-base-image-check
       params:
       - name: IMAGE_URL
