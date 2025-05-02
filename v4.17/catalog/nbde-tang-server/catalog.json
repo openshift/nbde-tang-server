@@ -12,14 +12,15 @@
     "name": "stable",
     "package": "nbde-tang-server",
     "entries": [
-	{
-	    "name": "nbde-tang-server.v1.1.0",
-	    "skipRange": "<1.1.0"
-	},
+        {
+            "name": "nbde-tang-server.v1.1.0",
+            "skipRange": "<1.1.0"
+        },
         {
             "name": "nbde-tang-server.v1.1.1",
-            "replaces": "nbde-tang-server.v1.1.0"
-	}
+            "replaces": "nbde-tang-server.v1.1.0",
+            "skipRange": "<1.1.1"
+        }
     ]
 }
 {
