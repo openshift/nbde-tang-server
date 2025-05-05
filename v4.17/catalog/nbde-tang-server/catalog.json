@@ -27,7 +27,7 @@
     "schema": "olm.bundle",
     "name": "nbde-tang-server.v1.1.1",
     "package": "nbde-tang-server",
-    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:ba767c001dd49f9144f96bcba0c364f853abfe8de0dd40b48cc084864c077358",
+    "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:79bf610b144cbdf4404a1153f1c395179ce1743274eec7102c862aae4f45890a",
     "properties": [
         {
             "type": "olm.gvk",
@@ -51,7 +51,7 @@
                     "alm-examples": "[]",
                     "capabilities": "Basic Install",
                     "categories": "Security",
-                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd",
+                    "containerImage": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:cdfb97d26f9dfda6e5c9a5955ebac560a87348dbd7f49b041204903f52c542b2",
                     "createdAt": "2025-04-24T18:06:07Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
@@ -139,11 +139,11 @@
         },
         {
             "name": "nbde-tang-server-bundle",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:ba767c001dd49f9144f96bcba0c364f853abfe8de0dd40b48cc084864c077358"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-operator-bundle@sha256:79bf610b144cbdf4404a1153f1c395179ce1743274eec7102c862aae4f45890a"
         },
         {
             "name": "nbde-tang-server",
-            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:129825a18a168b2d4fcb4315dbf592c3afd65a806d39e58e1e200482761dc8fd"
+            "image": "registry.redhat.io/nbde-tang-server/nbde-tang-server-rhel9-operator@sha256:cdfb97d26f9dfda6e5c9a5955ebac560a87348dbd7f49b041204903f52c542b2"
         }
     ]
 }
