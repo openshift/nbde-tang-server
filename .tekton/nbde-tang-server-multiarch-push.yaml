@@ -515,7 +515,8 @@ spec:
       optional: true
     - name: netrc
       optional: true
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-nbde-tang-server-multiarch
   workspaces:
   - name: git-auth
     secret:
