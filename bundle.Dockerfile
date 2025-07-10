@@ -1,4 +1,4 @@
-FROM golang:1.24.4 as builder
+FROM golang:1.24.5 as builder
 
 # Set original rbac image
 ARG IMG=gcr.io/kubebuilder/kube-rbac-proxy:v0.16.0
