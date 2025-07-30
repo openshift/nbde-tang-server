@@ -72,8 +72,12 @@ class VersionChecker:
         most_recent_tag = ""
         for tag in tags:
             result = subprocess.run(["skopeo", "inspect", "-n", "docker://" + image + ":" + tag],
-                                    stdout=subprocess.PIPE, check=False)
-            created = json.loads(result.stdout.decode("utf-8"))["Created"]
+                                    stdout=subprocess.PIPE, text=True, check=False)
+            if result.returncode != 0 or not result.stdout.strip():
+                self.logger.vprint("WARNING: Could not inspect tag:", tag, "for image:", image)
+                continue
+
+            created = json.loads(result.stdout)["Created"]
             self.logger.vprint("Tag:", tag, ", Created:", created, sep="")
             if created >= most_recent_created:
                 most_recent_created = created
