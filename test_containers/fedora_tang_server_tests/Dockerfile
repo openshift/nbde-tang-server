@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM fedora:42
+FROM fedora:44
 RUN dnf install -y tang curl socat meson ninja-build git gcc-c++\
  cmake libjose-devel asciidoc http-parser-devel bash
 RUN /usr/libexec/tangd-keygen /var/db/tang
