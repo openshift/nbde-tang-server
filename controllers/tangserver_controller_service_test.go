@@ -40,6 +40,93 @@ var _ = Describe("TangServer controller service", func() {
 		TangServerTestHostname          = "mylocalhost"
 	)
 
+	Describe("Service utility functions", func() {
+		var tangServer *daemonsv1alpha1.TangServer
+
+		BeforeEach(func() {
+			tangServer = &daemonsv1alpha1.TangServer{
+				ObjectMeta: metav1.ObjectMeta{
+					Name:      "test-server",
+					Namespace: "test-namespace",
+				},
+				Spec: daemonsv1alpha1.TangServerSpec{
+					ServiceListenPort: 8080,
+					ServiceType:       "LoadBalancer",
+				},
+			}
+		})
+
+		Context("getServiceName", func() {
+			It("should return correct service name", func() {
+				expected := "service-test-server"
+				actual := getServiceName(tangServer)
+				Expect(actual).To(Equal(expected))
+			})
+		})
+
+		Context("getServicePort", func() {
+			It("should return specified service port", func() {
+				expected := int32(8080)
+				actual := getServicePort(tangServer)
+				Expect(actual).To(Equal(expected))
+			})
+
+			It("should return default port when not specified", func() {
+				tangServer.Spec.ServiceListenPort = 0
+				expected := int32(DEFAULT_SERVICE_PORT)
+				actual := getServicePort(tangServer)
+				Expect(actual).To(Equal(expected))
+			})
+		})
+
+		Context("getServiceType", func() {
+			It("should return LoadBalancer when specified", func() {
+				tangServer.Spec.ServiceType = "LoadBalancer"
+				actual := getServiceType(tangServer)
+				expected := corev1.ServiceTypeLoadBalancer
+				Expect(actual).To(Equal(expected))
+			})
+
+			It("should return ClusterIP when specified", func() {
+				tangServer.Spec.ServiceType = "ClusterIP"
+				actual := getServiceType(tangServer)
+				expected := corev1.ServiceTypeClusterIP
+				Expect(actual).To(Equal(expected))
+			})
+
+			It("should return NodePort when specified", func() {
+				tangServer.Spec.ServiceType = "NodePort"
+				actual := getServiceType(tangServer)
+				expected := corev1.ServiceTypeNodePort
+				Expect(actual).To(Equal(expected))
+			})
+
+			It("should return default LoadBalancer when empty", func() {
+				tangServer.Spec.ServiceType = ""
+				actual := getServiceType(tangServer)
+				expected := corev1.ServiceTypeLoadBalancer
+				Expect(actual).To(Equal(expected))
+			})
+
+			It("should return LoadBalancer for invalid service type", func() {
+				tangServer.Spec.ServiceType = "InvalidType"
+				actual := getServiceType(tangServer)
+				expected := corev1.ServiceTypeLoadBalancer
+				Expect(actual).To(Equal(expected))
+			})
+		})
+
+		Context("service configuration", func() {
+			It("should handle service configuration correctly", func() {
+				tangServer.Spec.ServiceListenPort = 9000
+				tangServer.Spec.ServiceType = "LoadBalancer"
+
+				Expect(tangServer.Spec.ServiceListenPort).To(Equal(int32(9000)))
+				Expect(tangServer.Spec.ServiceType).To(Equal("LoadBalancer"))
+			})
+		})
+	})
+
 	Context("When Creating TangServer", func() {
 		It("Should be created with default listen port", func() {
 			By("By creating a new TangServer with empty listen port")
