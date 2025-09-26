@@ -145,6 +145,7 @@ func (r *TangServerReconciler) checkCRReadyForDeletion(ctx context.Context, tang
 //+kubebuilder:rbac:groups=nbde.openshift.io,resources=tangservers/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=nbde.openshift.io,resources=tangservers/finalizers,verbs=update
 //+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=apps,resources=statefulsets,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=core,resources=services,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;create;update
 //+kubebuilder:rbac:groups=core,resources=pods/log,verbs=get;list;watch;create;update
@@ -187,11 +188,11 @@ func (r *TangServerReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 		return r.checkCRReadyForDeletion(ctx, tangserver)
 	}
 
-	// Reconcile Deployment object
-	result, err := r.reconcileDeployment(tangserver)
+	// Reconcile StatefulSet object
+	result, err := r.reconcileStatefulSet(tangserver)
 	if err != nil {
-		l.Error(err, "Error on deployment reconciliation", "Error:", err.Error())
-		dumpToErrFile("Error on deployment reconciliation, Error:" + err.Error() + "\n")
+		l.Error(err, "Error on statefulset reconciliation", "Error:", err.Error())
+		dumpToErrFile("Error on statefulset reconciliation, Error:" + err.Error() + "\n")
 		return result, err
 	}
 	// Reconcile Service object
@@ -333,6 +334,154 @@ func (r *TangServerReconciler) CreateNewKeysIfNecessary(k KeyObtainInfo) bool {
 		}
 	}
 	return false
+}
+
+// reconcileStatefulSet creates statefulset appropriate for this CR
+func (r *TangServerReconciler) reconcileStatefulSet(cr *daemonsv1alpha1.TangServer) (ctrl.Result, error) {
+	// Define a new StatefulSet object
+	GetLogInstance().Info("reconcileStatefulSet")
+	statefulSet := getStatefulSet(cr)
+
+	// Set tangserver instance as the owner and controller of the StatefulSet
+	if err := ctrl.SetControllerReference(cr, statefulSet, r.Scheme); err != nil {
+		cr.Status.TangServerError = daemonsv1alpha1.CreateError
+		return ctrl.Result{}, err
+	}
+
+	// Check if this StatefulSet already exists
+	statefulSetFound := &appsv1.StatefulSet{}
+	err := r.Get(context.Background(), types.NamespacedName{Name: statefulSet.Name, Namespace: statefulSet.Namespace}, statefulSetFound)
+	if err != nil && errors.IsNotFound(err) {
+		GetLogInstance().Info("Creating a new StatefulSet", "StatefulSet.Namespace", statefulSet.Namespace, "StatefulSet.Name", statefulSet.Name)
+		err = r.Create(context.Background(), statefulSet)
+		if err != nil {
+			cr.Status.TangServerError = daemonsv1alpha1.CreateError
+			return ctrl.Result{}, err
+		}
+		// Requeue the object to update its status
+		return ctrl.Result{Requeue: true}, nil
+	} else if err != nil {
+		cr.Status.TangServerError = daemonsv1alpha1.CreateError
+		return ctrl.Result{}, err
+	} else {
+		// StatefulSet already exists
+		GetLogInstance().Info("StatefulSet already exists", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+		GetLogInstance().Info("Checking StatefulSet update")
+		// Check if it needs to be updated
+		if mustRedeployStatefulSet(statefulSet, statefulSetFound) {
+			GetLogInstance().Info("Updating StatefulSet, must redeploy")
+			err = r.Update(context.Background(), statefulSet)
+			if err != nil {
+				GetLogInstance().Error(err, "Failed to redeploy", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+				r.Recorder.Event(cr, "Error", "Redeploy", "Failed to redeploy StatefulSet")
+				return ctrl.Result{}, err
+			}
+		}
+	}
+
+	// Ensure StatefulSet replicas match the desired state
+	if !reflect.DeepEqual(statefulSetFound.Spec.Replicas, statefulSet.Spec.Replicas) {
+		GetLogInstance().Info("Current StatefulSet do not match Tang Server configured Replicas")
+		// Update the replicas
+		err = r.Update(context.Background(), statefulSet)
+		if err != nil {
+			GetLogInstance().Error(err, "Failed to update StatefulSet.", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+			r.Recorder.Event(cr, "Error", "Update", fmt.Sprintf("Failed to update StatefulSet, name:%s, namespace:%s", statefulSetFound.Name, statefulSetFound.Namespace))
+			return ctrl.Result{}, err
+		}
+	}
+
+	// Ensure StatefulSet container image match the desired state
+	if checkStatefulSetImage(statefulSetFound, statefulSet) {
+		GetLogInstance().Info("Current StatefulSet image version do not match TangServers configured version")
+		// Update the image
+		err = r.Update(context.Background(), statefulSet)
+		if err != nil {
+			GetLogInstance().Error(err, "Failed to update StatefulSet", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+			r.Recorder.Event(cr, "Error", "Update", fmt.Sprintf("Failed to update StatefulSet, name:%s, namespace:%s", statefulSetFound.Name, statefulSetFound.Namespace))
+			return ctrl.Result{}, err
+		}
+	}
+
+	// Check if the StatefulSet is ready and update replicas as they get ready
+	statefulSetReady := isStatefulSetReady(statefulSetFound)
+	ready := getStatefulSetReadyReplicas(statefulSetFound)
+	GetLogInstance().Info("StatefulSet Found Info", "Replicas", statefulSetFound.Status.Replicas, "Ready", statefulSetFound.Status.ReadyReplicas)
+	GetLogInstance().Info("Updating status with ready/running replicas", "Ready", ready, "Running", cr.Spec.Replicas, "StatefulSetReady", statefulSetReady)
+	cr.Status.Running = cr.Spec.Replicas
+	cr.Status.Ready = ready
+	if !statefulSetReady {
+		GetLogInstance().Info("StatefulSet not ready", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+	} else {
+		// Create list options to get StatefulSet pods and extract podname
+		podList := &corev1.PodList{}
+		listOpts := []client.ListOption{
+			client.InNamespace(statefulSetFound.Namespace),
+			client.MatchingLabels(statefulSetFound.Labels),
+		}
+		// List the pods for this StatefulSet
+		err = r.List(context.Background(), podList, listOpts...)
+		if err != nil || len(podList.Items) == 0 {
+			GetLogInstance().Error(err, "Failed to list Pods, required for keys", "StatefulSet.Namespace",
+				statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+			r.Recorder.Event(cr, "Error", "PodList", fmt.Sprintf("Failed to list pods in StatefulSet, name:%s, namespace:%s", statefulSetFound.Name, statefulSetFound.Namespace))
+			return ctrl.Result{}, err
+		}
+		GetLogInstance().Info("StatefulSet ready", "StatefulSet.Namespace", statefulSetFound.Namespace, "StatefulSet.Name", statefulSetFound.Name)
+
+		// Use the first pod for key operations (primary pod pattern)
+		k := KeyObtainInfo{
+			PodName:    podList.Items[0].Name,
+			Namespace:  statefulSetFound.Namespace,
+			DbPath:     getDefaultKeyPath(cr),
+			TangServer: cr,
+		}
+		if cr.Spec.HiddenKeys == nil {
+			GetLogInstance().Info("No hidden keys specified")
+		} else if len(cr.Spec.HiddenKeys) == 0 {
+			GetLogInstance().Info("Hidden keys specified with len 0, deleting all hidden keys")
+			if deleteAllHiddenKeys(k) {
+				r.Recorder.Event(cr, "Normal", "HiddenKeysDeletion", "Hidden keys deleted correctly")
+			} else {
+				r.Recorder.Event(cr, "Error", "HiddenKeysDeletion", "Hidden keys not deleted correctly")
+			}
+		} else if len(cr.Spec.HiddenKeys) > 0 {
+			rotated := r.handleHiddenKeys(k)
+			if rotated {
+				GetLogInstance().Info("Key(s) rotated", "Keys", cr.Spec.HiddenKeys)
+				// if keys are rotated, set the counter of active keys retries to zero
+				// just in case no active keys exist
+				activeKeyRetries = 0
+			} else {
+				GetLogInstance().Info("Key(s) not rotated", "Keys", cr.Spec.HiddenKeys)
+			}
+		}
+		r.UpdateKeys(k)
+
+		// Implement key synchronization between pods if we have multiple replicas
+		if len(podList.Items) > 1 {
+			keySyncInfo := KeySyncInfo{
+				Namespace:  statefulSetFound.Namespace,
+				DbPath:     getDefaultKeyPath(cr),
+				TangServer: cr,
+			}
+			err := r.syncKeysToAllSecondaryPods(podList, keySyncInfo)
+			if err != nil {
+				GetLogInstance().Error(err, "Failed to sync keys between pods")
+				r.Recorder.Event(cr, "Warning", "KeySync", "Failed to synchronize keys between pods")
+			} else {
+				GetLogInstance().Info("Successfully synchronized keys between pods")
+				r.Recorder.Event(cr, "Normal", "KeySync", "Keys synchronized between all pods")
+			}
+		}
+	}
+	err = r.Client.Status().Update(context.Background(), cr)
+	if err != nil {
+		GetLogInstance().Error(err, "Unable to update TangServer status")
+		r.Recorder.Event(cr, "Error", "Update", "Unable to update TangServer status")
+		return ctrl.Result{}, err
+	}
+	return ctrl.Result{}, nil
 }
 
 // reconcileDeployment creates deployment appropriate for this CR
@@ -542,6 +691,7 @@ func (r *TangServerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&daemonsv1alpha1.TangServer{}).
 		Owns(&appsv1.Deployment{}).
+		Owns(&appsv1.StatefulSet{}).
 		Owns(&corev1.Service{}).
 		Complete(r)
 }

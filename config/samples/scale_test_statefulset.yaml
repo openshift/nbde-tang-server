@@ -1,0 +1,18 @@
+apiVersion: nbde.openshift.io/v1alpha1
+kind: TangServer
+metadata:
+  name: scale-test-statefulset
+  namespace: test-namespace
+spec:
+  replicas: 2
+  storageSize: "2Gi"
+  storageClass: ""  # Use default storage class
+  image: "quay.io/sec-eng-special/nbde-tang-server"
+  version: "latest"
+  resourcesRequest:
+    cpu: "100m"
+    memory: "128Mi"
+  resourcesLimit:
+    cpu: "500m"
+    memory: "256Mi"
+  serviceType: "ClusterIP"

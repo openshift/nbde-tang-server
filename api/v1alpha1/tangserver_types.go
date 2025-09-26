@@ -103,6 +103,16 @@ type TangServerSpec struct {
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="ClusterIP (empty by default)"
 	// +optional
 	ClusterIP string `json:"clusterIP,omitempty"`
+
+	// StorageClass
+	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="StorageClass for PVC (empty for default)"
+	// +optional
+	StorageClass string `json:"storageClass,omitempty"`
+
+	// StorageSize
+	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Storage size for PVC (1Gi by default)"
+	// +optional
+	StorageSize string `json:"storageSize,omitempty"`
 }
 
 // ResourcesRequest contains the struct to provide resources requests to Tang Server
