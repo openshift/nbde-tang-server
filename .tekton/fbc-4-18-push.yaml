@@ -106,6 +106,10 @@ spec:
       description: List of platforms to build the container images on. The available set of values is determined by the configuration of the multi-platform-controller.
       name: build-platforms
       type: array
+    - name: buildah-format
+      default: docker
+      type: string
+      description: The format for the resulting image's mediaType. Valid values are oci or docker.
     results:
     - description: ''
       name: IMAGE_URL
@@ -133,7 +137,7 @@ spec:
         - name: name
           value: init
         - name: bundle
-          value: quay.io/konflux-ci/tekton-catalog/task-init:0.2@sha256:ec962d0be18f36ca7d331c99bf243800f569fc0a2ea6f8c8c3d3a574b71c44dc
+          value: quay.io/konflux-ci/tekton-catalog/task-init:0.2@sha256:abf231cfc5a68b56f68a8ac9bb26dca3c3e434c88dd9627c72bdec0b8c335c67
         - name: kind
           value: task
         resolver: bundles
@@ -189,6 +193,8 @@ spec:
         value: $(tasks.clone-repository.results.SOURCE_ARTIFACT)
       - name: IMAGE_APPEND_PLATFORM
         value: 'true'
+      - name: BUILDAH_FORMAT
+        value: $(params.buildah-format)
       runAfter:
       - clone-repository
       taskRef:
@@ -218,6 +224,8 @@ spec:
       - name: IMAGES
         value:
         - $(tasks.build-images.results.IMAGE_REF[*])
+      - name: BUILDAH_FORMAT
+        value: $(params.buildah-format)
       runAfter:
       - build-images
       taskRef:
@@ -286,26 +294,26 @@ spec:
         - 'false'
     - name: rpms-signature-scan
       params:
-        - name: image-url
-          value: $(tasks.build-image-index.results.IMAGE_URL)
-        - name: image-digest
-          value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+      - name: image-url
+        value: $(tasks.build-image-index.results.IMAGE_URL)
+      - name: image-digest
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
       runAfter:
-        - build-image-index
+      - build-image-index
       taskRef:
         params:
-          - name: name
-            value: rpms-signature-scan
-          - name: bundle
-            value: quay.io/konflux-ci/tekton-catalog/task-rpms-signature-scan:0.2@sha256:1b6c20ab3dbfb0972803d3ebcb2fa72642e59400c77bd66dfd82028bdd09e120
-          - name: kind
-            value: task
+        - name: name
+          value: rpms-signature-scan
+        - name: bundle
+          value: quay.io/konflux-ci/tekton-catalog/task-rpms-signature-scan:0.2@sha256:1b6c20ab3dbfb0972803d3ebcb2fa72642e59400c77bd66dfd82028bdd09e120
+        - name: kind
+          value: task
         resolver: bundles
       when:
-        - input: $(params.skip-checks)
-          operator: in
-          values:
-            - "false"
+      - input: $(params.skip-checks)
+        operator: in
+        values:
+        - "false"
     - name: deprecated-base-image-check
       params:
       - name: IMAGE_URL
