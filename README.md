@@ -20,7 +20,7 @@
 
 ## Introduction
 
-The NBDE Tang server operator provides [NBDE](https://access.redhat.com/articles/6987053)
+NBDE Tang server operator provides [NBDE](https://access.redhat.com/articles/6987053)
 technology for OpenShift/K8S. It deploys one or several Tang servers automatically.
 The Tang server container image to launch is configurable, and will use the latest one
 available by default. This operator has been developed using [operator-sdk](https://sdk.operatorframework.io/)
