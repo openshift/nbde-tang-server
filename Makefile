@@ -250,12 +250,12 @@ $(ENVTEST): $(LOCALBIN)
 	@test -s $(LOCALBIN)/setup-envtest || \
 	if [ -n "${GOARCH}" ]; then \
 	  if [ -n "${TANG_OPERATOR_CI}" ]; then \
-	    GOARCH= go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest; \
+	    GOARCH= go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.22; \
 	  else \
-	    go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest; \
+	    go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.22; \
 	  fi ;\
 	else \
-	  GOBIN=$(LOCALBIN) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest; \
+	  GOBIN=$(LOCALBIN) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@release-0.22; \
 	fi ;\
 
 .PHONY: bundle
