@@ -29,11 +29,11 @@ path="./..."
 while getopts "s:c:p:h" arg
 do
   case "${arg}" in
-    c) confidence=
+    c) confidence="${OPTARG}"
        ;;
-    p) path=
+    p) path="${OPTARG}"
        ;;
-    s) security=
+    s) security="${OPTARG}"
        ;;
     h) usage "$0" 0
        ;;
