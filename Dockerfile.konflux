@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:v1.24.4-202507171054.g2f6f49f.el9 AS builder
+FROM brew.registry.redhat.io/rh-osbs/openshift-golang-builder:v1.25.3-202511260833.g5015a16.el9 AS builder
 
 # Workspace workdir
 WORKDIR /workspace
