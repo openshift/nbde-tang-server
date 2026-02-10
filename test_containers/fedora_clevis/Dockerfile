@@ -1,4 +1,4 @@
-FROM fedora:44
+FROM fedora:45
 RUN dnf install -y clevis clevis-dracut clevis-systemd clevis-luks bash
 
 ENTRYPOINT ["tail"]
