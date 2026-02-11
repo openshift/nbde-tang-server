@@ -24,10 +24,10 @@ spec:
             computeResources:
               limits:
                 cpu: 8
-                memory: 4Gi
+                memory: 8Gi
               requests:
                 cpu: 500m
-                memory: 1Gi
+                memory: 2Gi
             volumeMounts:
               - name: source
                 mountPath: /workspace
@@ -49,7 +49,15 @@ spec:
               git fetch origin $REVISION
               git checkout FETCH_HEAD
               git log -1
+              GOOS=$(go env GOOS)
+              GOPATH=$(go env GOPATH)
+              pids=""
               for arch in ${archs}; do
-                V=1 TANG_OPERATOR_CI=1 GOOS=$(go env GOOS) GOARCH=$arch GOPATH=$(go env GOPATH) make build || exit $?
+                V=1 TANG_OPERATOR_CI=1 GOOS=$GOOS GOARCH=$arch GOPATH=$GOPATH make build &
+                pids="$pids $!"
               done
-              exit 0
+              failed=0
+              for pid in $pids; do
+                wait $pid || failed=1
+              done
+              exit $failed
