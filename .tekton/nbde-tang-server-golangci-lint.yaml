@@ -28,10 +28,10 @@ spec:
             computeResources:
               limits:
                 cpu: 8
-                memory: 4Gi
+                memory: 8Gi
               requests:
                 cpu: 500m
-                memory: 1Gi
+                memory: 2Gi
             volumeMounts:
               - name: source
                 mountPath: /workspace
@@ -55,9 +55,9 @@ spec:
               git fetch origin $REVISION
               git checkout FETCH_HEAD
               git log -1
-              go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+              export GOMEMLIMIT=7GiB
+              export GOGC=50
+              go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.8
               golangci-lint -v run --timeout 12m30s ./...
-              go install honnef.co/go/tools/cmd/staticcheck@latest
-              staticcheck ./...
               bash ./hack/gosec.sh
               exit $? # exit with the status of the tests
