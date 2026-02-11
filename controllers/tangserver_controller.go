@@ -95,7 +95,7 @@ func getSHA256() string {
 		if err != nil {
 			panic(err)
 		}
-		data[i] = byte(d.Int64())
+		data[i] = byte(d.Uint64() & 0xFF)
 	}
 	sha := fmt.Sprintf("%x", sha256.Sum256(data))
 	return sha

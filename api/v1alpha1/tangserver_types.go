@@ -62,7 +62,7 @@ type TangServerSpec struct {
 	// Secret is the secret name to use to download image appropriately
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Secret name to use for container download"
 	// +optional
-	Secret string `json:"secret,omitempty"`
+	Secret string `json:"secret,omitempty"` // #nosec G117 -- refers to a Kubernetes Secret name, not a credential value
 
 	// ServiceListenPort is the port where service will listen for traffic
 	// +operator-sdk:csv:customresourcedefinitions:type=spec,displayName="Port where service will listen"
