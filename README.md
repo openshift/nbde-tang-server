@@ -482,4 +482,4 @@ As it can be observed, execution of operator-sdk scorecard tests are passing suc
 [Validating Operators using the scorecard tool](https://docs.okd.io/latest/operators/operator_sdk/osdk-scorecard.html)\
 [Tang Operator Test Suite](https://github.com/RedHat-SP-Security/tang-operator-tests)\
 [Konflux Documentation](https://konflux-ci.dev/docs/)\
-[Konflux: Building an Operator Lifecycle Manager (OLM) Operator](https://konflux-ci.dev/docs/advanced-how-tos/building-olm/)
+[Konflux: Building an Operator Lifecycle Manager (OLM) Operator](https://konflux-ci.dev/docs/end-to-end/building-olm/)
