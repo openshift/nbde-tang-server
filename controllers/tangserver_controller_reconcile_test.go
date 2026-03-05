@@ -30,7 +30,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/tools/record"
+	"k8s.io/client-go/tools/events"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/client/fake"
@@ -74,7 +74,7 @@ var _ = Describe("TangServer controller reconciliation functions", func() {
 			reconciler = &TangServerReconciler{
 				Client:   fakeClient,
 				Scheme:   testScheme,
-				Recorder: record.NewFakeRecorder(100),
+				Recorder: events.NewFakeRecorder(100),
 			}
 		})
 
@@ -145,7 +145,7 @@ var _ = Describe("TangServer controller reconciliation functions", func() {
 			reconciler = &TangServerReconciler{
 				Client:   fakeClient,
 				Scheme:   testScheme,
-				Recorder: record.NewFakeRecorder(100),
+				Recorder: events.NewFakeRecorder(100),
 			}
 		})
 
@@ -249,7 +249,7 @@ var _ = Describe("TangServer controller reconciliation functions", func() {
 			reconciler = &TangServerReconciler{
 				Client:   fakeClient,
 				Scheme:   testScheme,
-				Recorder: record.NewFakeRecorder(100),
+				Recorder: events.NewFakeRecorder(100),
 			}
 		})
 
@@ -299,7 +299,7 @@ var _ = Describe("TangServer controller reconciliation functions", func() {
 
 		It("Should test finalizeTangServer function signature", func() {
 			reconciler := &TangServerReconciler{
-				Recorder: record.NewFakeRecorder(100),
+				Recorder: events.NewFakeRecorder(100),
 			}
 
 			tangServer := &daemonsv1alpha1.TangServer{

@@ -40,7 +40,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/types"
 	_ "k8s.io/client-go/plugin/pkg/client/auth" // Check if really necessary
-	"k8s.io/client-go/tools/record"
+	"k8s.io/client-go/tools/events"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
@@ -57,7 +57,7 @@ var activeKeyRetries uint32 = 0
 type TangServerReconciler struct {
 	client.Client
 	Scheme   *runtime.Scheme
-	Recorder record.EventRecorder
+	Recorder events.EventRecorder
 }
 
 // contains returns true if a string is found on a slice
@@ -276,13 +276,13 @@ func (r *TangServerReconciler) handleHiddenKeys(keyinfo KeyObtainInfo) bool {
 					rotated = true
 					GetLogInstance().Info("Key rotated correctly", "sha1", hk.Sha1, "sha256", hk.Sha256)
 					keyinfo.TangServer.Status.TangServerError = daemonsv1alpha1.NoError
-					r.Recorder.Event(keyinfo.TangServer, "Normal", "KeyRotation", fmt.Sprintf("Key Rotated Correctly, Key File: %s", ak.FileName))
+					r.Recorder.Eventf(keyinfo.TangServer, nil, "Normal", "KeyRotation", "KeyRotation", "Key Rotated Correctly, Key File: %s", ak.FileName)
 					if err := rotateUnadvertisedKeys(kr); err != nil {
 						GetLogInstance().Error(err, "Unable to rotate unadvertised keys", "Rotating Key", kr)
 					}
 				} else {
 					GetLogInstance().Error(err, "Key not rotated correctly", "sha1", hk.Sha1, "sha256", hk.Sha256)
-					r.Recorder.Event(keyinfo.TangServer, "Error", "KeyRotation", fmt.Sprintf("Key NOT Rotated Correctly, Key File: %s", ak.FileName))
+					r.Recorder.Eventf(keyinfo.TangServer, nil, "Error", "KeyRotation", "KeyRotation", "Key NOT Rotated Correctly, Key File: %s", ak.FileName)
 					keyinfo.TangServer.Status.TangServerError = daemonsv1alpha1.ActiveKeyNotFoundError
 				}
 			}
@@ -323,12 +323,12 @@ func (r *TangServerReconciler) CreateNewKeysIfNecessary(k KeyObtainInfo) bool {
 	if int(len(k.TangServer.Status.ActiveKeys)) < int(requiredActiveKeyPairs) && requiredActiveKeyPairs > 1 {
 		if err := createNewPairOfKeys(k); err != nil {
 			GetLogInstance().Error(err, "Unable to create new keys", "KeyObtainInfo", k)
-			r.Recorder.Event(k.TangServer, "Error", "NewKeys", "Unable to create new pair of keys")
+			r.Recorder.Eventf(k.TangServer, nil, "Error", "NewKeys", "NewKeys", "Unable to create new pair of keys")
 		} else {
 			GetLogInstance().Info("New Active Keys Created", "KeyObtainInfo", k, "Active Keys",
 				len(k.TangServer.Status.ActiveKeys), "Required Active Keys", requiredActiveKeyPairs)
-			r.Recorder.Event(k.TangServer, "Normal", "NewKeys", fmt.Sprintf("Created %d active pair of keys",
-				len(k.TangServer.Status.ActiveKeys)))
+			r.Recorder.Eventf(k.TangServer, nil, "Normal", "NewKeys", "NewKeys", "Created %d active pair of keys",
+				len(k.TangServer.Status.ActiveKeys))
 			return true
 		}
 	}
@@ -372,7 +372,7 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 			err = r.Update(context.Background(), deployment)
 			if err != nil {
 				GetLogInstance().Error(err, "Failed to redeploy", "Deployment.Namespace", deploymentFound.Namespace, "Deployment.Name", deploymentFound.Name)
-				r.Recorder.Event(cr, "Error", "Redeploy", "Failed to redeploy")
+				r.Recorder.Eventf(cr, nil, "Error", "Redeploy", "Redeploy", "Failed to redeploy")
 				return ctrl.Result{}, err
 			}
 		}
@@ -385,7 +385,7 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 		err = r.Update(context.Background(), deployment)
 		if err != nil {
 			GetLogInstance().Error(err, "Failed to update Deployment.", "Deployment.Namespace", deploymentFound.Namespace, "Deployment.Name", deploymentFound.Name)
-			r.Recorder.Event(cr, "Error", "Update", fmt.Sprintf("Failed to update deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace))
+			r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Failed to update deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace)
 			return ctrl.Result{}, err
 		}
 	}
@@ -397,7 +397,7 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 		err = r.Update(context.Background(), deployment)
 		if err != nil {
 			GetLogInstance().Error(err, "Failed to update Deployment", "Deployment.Namespace", deploymentFound.Namespace, "Deployment.Name", deploymentFound.Name)
-			r.Recorder.Event(cr, "Error", "Update", fmt.Sprintf("Failed to update deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace))
+			r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Failed to update deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace)
 			return ctrl.Result{}, err
 		}
 	}
@@ -423,7 +423,7 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 		if err != nil || len(podList.Items) == 0 {
 			GetLogInstance().Error(err, "Failed to list Pods, required for keys", "Deployment.Namespace",
 				deploymentFound.Namespace, "Deployment.Name", deploymentFound.Name)
-			r.Recorder.Event(cr, "Error", "PodList", fmt.Sprintf("Failed to list pods in deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace))
+			r.Recorder.Eventf(cr, nil, "Error", "PodList", "PodList", "Failed to list pods in deployment, name:%s, namespace:%s", deploymentFound.Name, deploymentFound.Namespace)
 			return ctrl.Result{}, err
 		}
 		GetLogInstance().Info("Deployment ready", "Deployment.Namespace", deploymentFound.Namespace, "Deployment.Name", deploymentFound.Name)
@@ -438,9 +438,9 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 		} else if len(cr.Spec.HiddenKeys) == 0 {
 			GetLogInstance().Info("Hidden keys specified with len 0, deleting all hidden keys")
 			if deleteAllHiddenKeys(k) {
-				r.Recorder.Event(cr, "Normal", "HiddenKeysDeletion", "Hidden keys deleted correctly")
+				r.Recorder.Eventf(cr, nil, "Normal", "HiddenKeysDeletion", "HiddenKeysDeletion", "Hidden keys deleted correctly")
 			} else {
-				r.Recorder.Event(cr, "Error", "HiddenKeysDeletion", "Hidden keys not deleted correctly")
+				r.Recorder.Eventf(cr, nil, "Error", "HiddenKeysDeletion", "HiddenKeysDeletion", "Hidden keys not deleted correctly")
 			}
 		} else if len(cr.Spec.HiddenKeys) > 0 {
 			rotated := r.handleHiddenKeys(k)
@@ -458,7 +458,7 @@ func (r *TangServerReconciler) reconcileDeployment(cr *daemonsv1alpha1.TangServe
 	err = r.Client.Status().Update(context.Background(), cr)
 	if err != nil {
 		GetLogInstance().Error(err, "Unable to update TangServer status")
-		r.Recorder.Event(cr, "Error", "Update", "Unable to update TangServer status")
+		r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Unable to update TangServer status")
 		return ctrl.Result{}, err
 	}
 	return ctrl.Result{}, nil
@@ -486,7 +486,7 @@ func (r *TangServerReconciler) reconcileService(cr *daemonsv1alpha1.TangServer) 
 		return ctrl.Result{}, nil
 	} else if err != nil {
 		GetLogInstance().Error(err, "Error on service Get")
-		r.Recorder.Event(cr, "Error", "Service", fmt.Sprintf("Error getting service: name:%s, namespace:%s", service.Name, service.Namespace))
+		r.Recorder.Eventf(cr, nil, "Error", "Service", "Service", "Error getting service: name:%s, namespace:%s", service.Name, service.Namespace)
 		return ctrl.Result{}, err
 	} else {
 		// Service already exists
@@ -497,7 +497,7 @@ func (r *TangServerReconciler) reconcileService(cr *daemonsv1alpha1.TangServer) 
 			err := r.Client.Status().Update(context.Background(), cr)
 			if err != nil {
 				GetLogInstance().Error(err, "Unable to update TangServer status with Service IP URL")
-				r.Recorder.Event(cr, "Error", "Update", "Unable to update TangServer status with Service IP URL")
+				r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Unable to update TangServer status with Service IP URL")
 				return ctrl.Result{}, err
 			}
 		} else {
@@ -518,11 +518,11 @@ func (r *TangServerReconciler) reconcilePeriodic(cr *daemonsv1alpha1.TangServer)
 		activeKeyRetries = activeKeyRetries + 1
 		cr.Status.TangServerError = daemonsv1alpha1.ActiveKeysError
 		GetLogInstance().Info("Retrying key retrieval", "Retries:", fmt.Sprint(activeKeyRetries))
-		r.Recorder.Event(cr, "Normal", "ActiveKeyRetrieval", fmt.Sprintf("Empty Active Key List Retries: %d", activeKeyRetries))
+		r.Recorder.Eventf(cr, nil, "Normal", "ActiveKeyRetrieval", "ActiveKeyRetrieval", "Empty Active Key List Retries: %d", activeKeyRetries)
 		err := r.Client.Status().Update(context.Background(), cr)
 		if err != nil {
 			GetLogInstance().Error(err, "Unable to update TangServer status with active key retries and error")
-			r.Recorder.Event(cr, "Error", "Update", "Unable to update TangServer status clearing active key retries and error")
+			r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Unable to update TangServer status clearing active key retries and error")
 		}
 		return ctrl.Result{RequeueAfter: time.Duration(DEFAULT_RECONCILE_TIMER_NO_ACTIVE_KEYS) * time.Second}, true
 	} else {
@@ -531,7 +531,7 @@ func (r *TangServerReconciler) reconcilePeriodic(cr *daemonsv1alpha1.TangServer)
 		err := r.Client.Status().Update(context.Background(), cr)
 		if err != nil {
 			GetLogInstance().Error(err, "Unable to update TangServer status clearing active key retries and error")
-			r.Recorder.Event(cr, "Error", "Update", "Unable to update TangServer status clearing active key retries and error")
+			r.Recorder.Eventf(cr, nil, "Error", "Update", "Update", "Unable to update TangServer status clearing active key retries and error")
 		}
 	}
 	return ctrl.Result{}, false

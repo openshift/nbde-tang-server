@@ -31,7 +31,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes/scheme"
-	"k8s.io/client-go/tools/record"
+	"k8s.io/client-go/tools/events"
 	ctrl "sigs.k8s.io/controller-runtime"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
@@ -147,7 +147,7 @@ var _ = Describe("TangServer controller", func() {
 			rec := TangServerReconciler{
 				Client:   nc,
 				Scheme:   s,
-				Recorder: record.NewFakeRecorder(FAKE_RECORDER_BUFFER),
+				Recorder: events.NewFakeRecorder(FAKE_RECORDER_BUFFER),
 			}
 			err := rec.SetupWithManager(mgr)
 			Expect(err, nil)
@@ -181,7 +181,7 @@ var _ = Describe("TangServer controller", func() {
 			rec := TangServerReconciler{
 				Client:   nc,
 				Scheme:   s,
-				Recorder: record.NewFakeRecorder(FAKE_RECORDER_BUFFER),
+				Recorder: events.NewFakeRecorder(FAKE_RECORDER_BUFFER),
 			}
 			err := rec.SetupWithManager(mgr)
 			Expect(err, nil)
@@ -220,7 +220,7 @@ var _ = Describe("TangServer controller", func() {
 			rec := TangServerReconciler{
 				Client:   nc,
 				Scheme:   s,
-				Recorder: record.NewFakeRecorder(FAKE_RECORDER_BUFFER),
+				Recorder: events.NewFakeRecorder(FAKE_RECORDER_BUFFER),
 			}
 			err := rec.SetupWithManager(mgr)
 			Expect(err, nil)
