@@ -11,7 +11,7 @@ spec:
           - name: source
             emptyDir: { }
         steps:
-          - image: quay.io/sec-eng-special/golang:1.25.7
+          - image: quay.io/sec-eng-special/golang:1.26.3
             env:
               - name: COMPONENT
                 valueFrom:
@@ -57,7 +57,7 @@ spec:
               git log -1
               export GOMEMLIMIT=7GiB
               export GOGC=50
-              go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.8
+              go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.12.2
               golangci-lint -v run --timeout 12m30s ./...
               bash ./hack/gosec.sh
               exit $? # exit with the status of the tests
