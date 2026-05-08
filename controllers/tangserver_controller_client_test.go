@@ -134,7 +134,7 @@ users:
 
 		AfterEach(func() {
 			if tempKubeconfig != "" {
-				os.Remove(tempKubeconfig)
+				_ = os.Remove(tempKubeconfig)
 			}
 		})
 
@@ -153,15 +153,15 @@ users:
 			err = os.Rename(tempKubeconfig, kubeconfigPath)
 			Expect(err).To(BeNil())
 
-			os.Setenv("HOME", tempHome)
+			Expect(os.Setenv("HOME", tempHome)).To(BeNil())
 
 			config, err := GetClusterClientConfig()
 
 			// Restore original HOME
-			os.Setenv("HOME", originalHome)
+			Expect(os.Setenv("HOME", originalHome)).To(BeNil())
 
 			// Clean up
-			os.RemoveAll(kubeDir)
+			_ = os.RemoveAll(kubeDir)
 
 			if err != nil {
 				// May fail in test environment, but function was exercised

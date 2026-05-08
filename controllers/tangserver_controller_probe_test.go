@@ -49,8 +49,8 @@ var _ = Describe("TangServer controller probe", func() {
 				},
 			}
 			Expect(k8sClient.Create(ctx, tangServer)).Should(Succeed())
-			Expect(getReadyProbe(tangServer).ProbeHandler.Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
-			Expect(getLivenessProbe(tangServer).ProbeHandler.Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
+			Expect(getReadyProbe(tangServer).Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
+			Expect(getLivenessProbe(tangServer).Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
 			err := k8sClient.Delete(ctx, tangServer)
 			Expect(err, nil)
 		})
@@ -68,8 +68,8 @@ var _ = Describe("TangServer controller probe", func() {
 				},
 			}
 			Expect(k8sClient.Create(ctx, tangServer)).Should(Succeed())
-			Expect(getReadyProbe(tangServer).ProbeHandler.Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
-			Expect(getLivenessProbe(tangServer).ProbeHandler.Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
+			Expect(getReadyProbe(tangServer).Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
+			Expect(getLivenessProbe(tangServer).Exec.Command[0], DEFAULT_DEPLOYMENT_HEALTH_CHECK)
 			err := k8sClient.Delete(ctx, tangServer)
 			Expect(err, nil)
 		})

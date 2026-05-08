@@ -75,9 +75,5 @@ func getDeploymentReadyReplicas(deployment *appsv1.Deployment) int32 {
 func isDeploymentReady(deployment *appsv1.Deployment) bool {
 	replicas := deployment.Status.Replicas
 	readyReplicas := deployment.Status.ReadyReplicas
-	deploymentReady := false
-	if replicas != 0 && replicas == readyReplicas {
-		deploymentReady = true
-	}
-	return deploymentReady
+	return replicas != 0 && replicas == readyReplicas
 }

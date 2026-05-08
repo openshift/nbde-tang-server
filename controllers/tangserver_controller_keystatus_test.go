@@ -138,7 +138,7 @@ var _ = Describe("TangServer controller key status functions", func() {
 
 		AfterEach(func() {
 			if tempDir != "" {
-				os.RemoveAll(tempDir)
+				_ = os.RemoveAll(tempDir)
 			}
 		})
 
@@ -215,7 +215,7 @@ var _ = Describe("TangServer controller key status functions", func() {
 
 		AfterEach(func() {
 			if tempDir != "" {
-				os.RemoveAll(tempDir)
+				_ = os.RemoveAll(tempDir)
 			}
 		})
 

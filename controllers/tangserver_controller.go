@@ -81,7 +81,11 @@ func dumpToErrFile(msg string) {
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
+	defer func() {
+		if cerr := f.Close(); cerr != nil {
+			panic(cerr)
+		}
+	}()
 	if _, err = f.WriteString(msg); err != nil {
 		panic(err)
 	}
@@ -104,8 +108,8 @@ func getSHA256() string {
 // updateUID allows to set a UID for those cases where it is not set (i.e.:running on test infra)
 func updateUID(cr *daemonsv1alpha1.TangServer, req ctrl.Request) {
 	// Ugly hack to update UID for test to run appropriately
-	if req.NamespacedName.Name == daemonsv1alpha1.DefaultTestName {
-		cr.ObjectMeta.UID = types.UID(getSHA256())
+	if req.Name == daemonsv1alpha1.DefaultTestName {
+		cr.UID = types.UID(getSHA256())
 	}
 }
 
@@ -168,8 +172,8 @@ func (r *TangServerReconciler) Reconcile(ctx context.Context, req ctrl.Request) 
 
 	tangserver := &daemonsv1alpha1.TangServer{
 		ObjectMeta: metav1.ObjectMeta{
-			Namespace: req.NamespacedName.Namespace,
-			Name:      req.NamespacedName.Name,
+			Namespace: req.Namespace,
+			Name:      req.Name,
 		},
 	}
 	updateUID(tangserver, req)
