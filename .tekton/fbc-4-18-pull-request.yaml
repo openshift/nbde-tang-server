@@ -26,9 +26,9 @@ spec:
   - name: image-expires-after
     value: 5d
   - name: path-context
-    value: /v4.18/
+    value: v4.18
   - name: dockerfile
-    value: /v4.18/Containerfile.catalog
+    value: Containerfile.catalog
   - name: build-platforms
     value:
     - linux/x86_64

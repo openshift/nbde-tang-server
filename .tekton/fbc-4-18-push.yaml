@@ -23,9 +23,9 @@ spec:
   - name: output-image
     value: quay.io/redhat-user-workloads/konflux-sec-eng-spec-tenant/fbc-4-18:{{revision}}
   - name: path-context
-    value: /v4.18/
+    value: v4.18
   - name: dockerfile
-    value: /v4.18/Containerfile.catalog
+    value: Containerfile.catalog
   - name: build-platforms
     value:
     - linux/x86_64
