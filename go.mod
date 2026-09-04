@@ -2,7 +2,7 @@ module github.com/openshift/nbde-tang-server
 
 go 1.25.0
 
-toolchain go1.26.5
+toolchain go1.27.1
 
 require (
 	github.com/go-logr/logr v1.4.3
